@@ -1,0 +1,1 @@
+The configuration loader applies sources in the wrong order. Fix precedence so it is exactly: CLI arguments > environment variables > config file > defaults. Values explicitly set to false, zero, or an empty string are valid overrides. Make a minimal change and run the tests.

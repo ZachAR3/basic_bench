@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "zcode-route": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "ZCode route",
+      "options": {
+        "baseURL": "https://zcode.z.ai/api/v1/zcode-plan/anthropic",
+        "apiKey": "{env:ZCODE_API_KEY}"
+      },
+      "models": {
+        "GLM-5.2": {
+          "name": "GLM-5.2"
+        }
+      }
+    }
+  },
+  "model": "zcode-route/GLM-5.2",
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny"
+  }
+}

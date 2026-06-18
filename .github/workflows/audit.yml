@@ -1,0 +1,23 @@
+name: audit
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  benchmark:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python3 scripts/init_large_task.py
+      - run: python3 -m py_compile bench.py public_runner.py scripts/init_large_task.py
+      - run: python3 bench.py quality-audit
+      - run: python3 bench.py quality-audit-large
+      - run: python3 bench.py security-audit

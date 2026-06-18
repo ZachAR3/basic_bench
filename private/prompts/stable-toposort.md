@@ -1,0 +1,1 @@
+The dependency sorter is nondeterministic, mishandles duplicate dependency declarations, and does not clearly report cycles. Return a stable order using input declaration order as the tie-breaker. Include dependency-only nodes. Raise ValueError for cycles. Run the tests.

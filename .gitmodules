@@ -1,0 +1,3 @@
+[submodule "vendor/click"]
+	path = vendor/click
+	url = https://github.com/pallets/click.git

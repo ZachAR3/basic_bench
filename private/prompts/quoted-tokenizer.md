@@ -1,0 +1,1 @@
+The tokenizer mishandles escaped quotes and backslashes inside quoted fields and silently accepts unterminated quotes. Fix the parser with minimal changes. Whitespace separates unquoted tokens; quote characters are not part of returned values. Run the tests.

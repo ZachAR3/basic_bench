@@ -1,0 +1,62 @@
+[
+  {
+    "id": "lru-update",
+    "title": "LRU update at capacity",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "config-precedence",
+    "title": "CLI configuration precedence",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "rate-window",
+    "title": "Sliding-window rate limiter boundary",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "quoted-tokenizer",
+    "title": "Escaped quoted-token parser",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "schema-migration",
+    "title": "Versioned JSON schema migration",
+    "agent_visible_tests": false,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "csv-unicode",
+    "title": "Unicode-safe CSV serialization",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "stable-toposort",
+    "title": "Stable topological ordering",
+    "agent_visible_tests": true,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "async-retry",
+    "title": "Async retry and backoff semantics",
+    "agent_visible_tests": false,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "dst-recurrence",
+    "title": "Wall-clock recurrence through timezone transitions",
+    "agent_visible_tests": false,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "webdav-endpoint",
+    "title": "Strict WebDAV endpoint parsing",
+    "agent_visible_tests": false,
+    "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  }
+]

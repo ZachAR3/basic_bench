@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -n "${CODEX_CLI:-}" ]]; then
+  exec "$CODEX_CLI" "$@"
+fi
+
+macos_bundle="/Applications/Codex.app/Contents/Resources/codex"
+if [[ -x "$macos_bundle" ]]; then
+  exec "$macos_bundle" "$@"
+fi
+
+echo "Codex CLI not found. Set CODEX_CLI to its executable path." >&2
+exit 127

@@ -1,0 +1,32 @@
+{
+  "private_task_ids": [
+    "lru-update",
+    "config-precedence",
+    "rate-window",
+    "quoted-tokenizer",
+    "schema-migration",
+    "csv-unicode",
+    "stable-toposort",
+    "async-retry",
+    "dst-recurrence",
+    "webdav-endpoint"
+  ],
+  "polyglot_tasks": [
+    {"language": "python", "task": "poker", "test_command": ["python3", "-m", "unittest", "discover", "-p", "*_test.py"]},
+    {"language": "javascript", "task": "poker", "test_command": ["npm", "test", "--", "--runInBand"]},
+    {"language": "go", "task": "poker", "test_command": ["go", "test", "./..."]},
+    {"language": "java", "task": "poker", "test_command": ["./gradlew", "test"]},
+    {"language": "rust", "task": "poker", "test_command": ["cargo", "test", "--quiet"]},
+    {"language": "cpp", "task": "zebra-puzzle", "test_command": ["bash", "-lc", "mkdir -p build && cd build && cmake .. >/dev/null && cmake --build . >/dev/null && ctest --output-on-failure"]}
+  ],
+  "swebench_instance_ids": [
+    "sympy__sympy-20590",
+    "django__django-11099"
+  ],
+  "livecodebench": {
+    "release": "release_latest",
+    "count": 10,
+    "start_date": "2025-01-01",
+    "timeout_seconds": 10
+  }
+}

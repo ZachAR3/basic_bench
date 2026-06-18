@@ -1,0 +1,26 @@
+{
+  "provider": {
+    "opencode-go": {
+      "kind": "openai-compatible",
+      "name": "OpenCode Go",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/go/v1",
+        "apiKeyRequired": true
+      },
+      "models": {
+        "glm-5.2": {
+          "name": "GLM-5.2"
+        }
+      }
+    }
+  },
+  "model": "opencode-go/glm-5.2",
+  "permission": {
+    "mode": "yolo",
+    "disallowedTools": [
+      "WebFetch",
+      "WebSearch",
+      "ReadSessionContext"
+    ]
+  }
+}

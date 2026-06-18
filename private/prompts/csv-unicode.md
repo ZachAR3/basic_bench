@@ -1,0 +1,1 @@
+The CSV serializer is hand-escaping fields and breaks on embedded newlines, quotes, Unicode, and None. Fix it using the standard library while preserving the function signature and Unix newline output. None should serialize as an empty field. Run the tests.

@@ -1,0 +1,1 @@
+The JSON settings migrator skips versions and mutates its input. Make migration deterministic from versions 1 or 2 to version 3, preserve unknown fields, and do not mutate the caller's object. Reject unsupported versions. No reproduction or test suite is provided; diagnose the implementation from the issue report and keep the patch focused.

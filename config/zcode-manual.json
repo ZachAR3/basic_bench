@@ -1,0 +1,9 @@
+{
+  "permission": {
+    "disallowedTools": [
+      "WebFetch",
+      "WebSearch",
+      "ReadSessionContext"
+    ]
+  }
+}

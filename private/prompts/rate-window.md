@@ -1,0 +1,1 @@
+The sliding-window rate limiter has boundary and rejected-request accounting bugs. A timestamp exactly one window old must no longer count, and rejected requests must not consume capacity. Fix it without changing the public API. Run the tests.

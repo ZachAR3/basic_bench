@@ -1,0 +1,82 @@
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index 64be7e0..88ba9fe 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -24,6 +24,7 @@ from .decorators import make_pass_decorator as make_pass_decorator
+ from .decorators import option as option
+ from .decorators import pass_context as pass_context
+ from .decorators import pass_obj as pass_obj
++from .decorators import pass_parameter_sources as pass_parameter_sources
+ from .decorators import password_option as password_option
+ from .decorators import version_option as version_option
+ from .exceptions import Abort as Abort
+diff --git a/src/click/core.py b/src/click/core.py
+index 3544c03..a2fca30 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -842,6 +842,7 @@ class Context:
+         """
+         if isinstance(callback, Command):
+             other_cmd = callback
++            explicit_names = set(kwargs)
+
+             if other_cmd.callback is None:
+                 raise TypeError(
+@@ -869,6 +870,13 @@ class Context:
+             # Track all kwargs as params, so that forward() will pass
+             # them on in subsequent calls.
+             ctx.params.update(kwargs)
++            for name in kwargs:
++                ctx.set_parameter_source(
++                    name,
++                    ParameterSource.COMMANDLINE
++                    if name in explicit_names
++                    else ParameterSource.DEFAULT,
++                )
+         else:
+             ctx = self
+
+@@ -922,6 +930,17 @@ class Context:
+         """
+         return self._parameter_source.get(name)
+
++    @property
++    def parameter_sources(self) -> cabc.Mapping[str, ParameterSource]:
++        """A mapping of parameter names to the source of their values.
++
++        This is useful for integrations which need all source information
++        without knowing the command's parameter names in advance.
++
++        .. versionadded:: 8.4
++        """
++        return self._parameter_source
++
+
+ class Command:
+     """Commands are the basic building block of command line interfaces in
+diff --git a/src/click/decorators.py b/src/click/decorators.py
+index 14aee42..1a8fcd1 100644
+--- a/src/click/decorators.py
++++ b/src/click/decorators.py
+@@ -36,6 +36,21 @@ def pass_context(f: t.Callable[te.Concatenate[Context, P], R]) -> t.Callable[P,
+     return update_wrapper(new_func, f)
+
+
++def pass_parameter_sources(
++    f: t.Callable[te.Concatenate[t.Mapping[str, t.Any], P], R],
++) -> t.Callable[P, R]:
++    """Pass the current context's parameter-source mapping as the first
++    argument to the decorated callback.
++
++    .. versionadded:: 8.4
++    """
++
++    def new_func(*args: P.args, **kwargs: P.kwargs) -> R:
++        return f(get_current_context()._parameter_source, *args, **kwargs)
++
++    return update_wrapper(new_func, f)
++
++
+ def pass_obj(f: t.Callable[te.Concatenate[T, P], R]) -> t.Callable[P, R]:
+     """Similar to :func:`pass_context`, but only pass the object on the
+     context onwards (:attr:`Context.obj`).  This is useful if that object

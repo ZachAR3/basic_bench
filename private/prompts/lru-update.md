@@ -1,0 +1,1 @@
+The LRU cache passes basic tests but behaves incorrectly when an existing key is updated while the cache is full. Run the tests, inspect the implementation, and make the smallest correct fix. Preserve the linked-list design and public API. Do not rewrite unrelated code. When done, report the files changed and test command used.

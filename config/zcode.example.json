@@ -1,0 +1,26 @@
+{
+  "provider": {
+    "zai-coding-plan": {
+      "kind": "anthropic",
+      "name": "Z.AI Coding Plan",
+      "options": {
+        "baseURL": "https://zcode.z.ai/api/v1/zcode-plan/anthropic",
+        "apiKeyRequired": true
+      },
+      "models": {
+        "GLM-5.2": {
+          "name": "GLM-5.2"
+        }
+      }
+    }
+  },
+  "model": "zai-coding-plan/GLM-5.2",
+  "permission": {
+    "mode": "yolo",
+    "disallowedTools": [
+      "WebFetch",
+      "WebSearch",
+      "ReadSessionContext"
+    ]
+  }
+}

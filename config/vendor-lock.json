@@ -1,0 +1,19 @@
+{
+  "click": {
+    "url": "https://github.com/pallets/click.git",
+    "tag": "8.4.0",
+    "commit": "41f410fb7528305d7e87c8cfa704f6c2456f57fc"
+  },
+  "LiveCodeBench": {
+    "url": "https://github.com/LiveCodeBench/LiveCodeBench.git",
+    "commit": "28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24"
+  },
+  "polyglot-benchmark": {
+    "url": "https://github.com/Aider-AI/polyglot-benchmark.git",
+    "commit": "7e0611e77b54e2dea774cdc0aa00cf9f7ed6144f"
+  },
+  "SWE-bench": {
+    "url": "https://github.com/SWE-bench/SWE-bench.git",
+    "commit": "f7bbbb2ccdf479001d6467c9e34af59e44a840f9"
+  }
+}

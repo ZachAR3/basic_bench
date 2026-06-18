@@ -1,0 +1,16 @@
+{
+  "id": "click-context-provenance",
+  "title": "Click nested-dispatch parameter provenance",
+  "agent_visible_tests": false,
+  "regression_dir": "regression/click-context-provenance",
+  "test_runner": "isolated_unittest_src.py",
+  "visible_test_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ]
+}
