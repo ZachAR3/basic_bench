@@ -409,6 +409,7 @@ def provider_command(provider: str, workspace: Path, prompt: str) -> tuple[list[
         command = [
             "opencode",
             "run",
+            "--pure",
             "--dir",
             str(workspace),
             "--model",

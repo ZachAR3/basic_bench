@@ -137,3 +137,12 @@ python3 bench.py run-large --provider opencode --run-id opencode-model
 ```
 
 Local provider files are ignored by Git.
+
+### OpenCode Go with Kimi K2.7 Code
+
+```bash
+cp config/opencode-go-kimi.example.jsonc opencode.jsonc
+export OPENCODE_MODEL='opencode-go/kimi-k2.7-code'
+```
+
+The API key is read from `OPENCODE_GO_API_KEY`.
