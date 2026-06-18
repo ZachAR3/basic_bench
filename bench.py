@@ -356,6 +356,10 @@ def run_agent(command: list[str], workspace: Path, timeout: int, env: dict[str, 
 
 def provider_command(provider: str, workspace: Path, prompt: str) -> tuple[list[str], dict[str, str]]:
     env = os.environ.copy()
+    # Some agent CLIs inspect PWD instead of querying their actual process cwd.
+    # Keep it inside the isolated workspace so configuration discovery cannot
+    # touch the denied benchmark root.
+    env["PWD"] = str(workspace)
     prompt = AGENT_POLICY + prompt
     if provider == "command":
         raw = os.environ.get("BENCH_AGENT_COMMAND")
@@ -402,7 +406,7 @@ def provider_command(provider: str, workspace: Path, prompt: str) -> tuple[list[
                 env["ZCODE_DIRECT_LOGIN_MISSING"] = "1"
         return command, env
     if provider == "opencode":
-        model = os.environ.get("OPENCODE_MODEL", "zcode-route/GLM-5.2")
+        model = os.environ.get("OPENCODE_MODEL")
         env["XDG_DATA_HOME"] = str(workspace / ".agent-state" / "opencode-data")
         env["XDG_CACHE_HOME"] = str(workspace / ".agent-state" / "opencode-cache")
         env["XDG_CONFIG_HOME"] = str(workspace / ".agent-state" / "opencode-config")
@@ -412,13 +416,13 @@ def provider_command(provider: str, workspace: Path, prompt: str) -> tuple[list[
             "--pure",
             "--dir",
             str(workspace),
-            "--model",
-            model,
             "--format",
             "json",
             "--dangerously-skip-permissions",
-            prompt,
         ]
+        if model:
+            command.extend(["--model", model])
+        command.append(prompt)
         return command, env
     raise ValueError(f"Unknown provider: {provider}")
 
