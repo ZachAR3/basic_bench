@@ -604,6 +604,16 @@ def result_has_task(path: Path, task_id: str) -> bool:
     )
 
 
+def result_task_ids(path: Path) -> set[str]:
+    if not path.exists():
+        return set()
+    return {
+        json.loads(line)["task_id"]
+        for line in path.read_text().splitlines()
+        if line.strip()
+    }
+
+
 def run_private(args: argparse.Namespace) -> int:
     tasks = [t for t in load_tasks() if t["id"] in CONFIG["private_task_ids"]]
     if args.task:
@@ -613,9 +623,19 @@ def run_private(args: argparse.Namespace) -> int:
         tasks = tasks[: args.limit]
     run_id = args.run_id or f"{dt.datetime.now().strftime('%Y%m%d-%H%M%S')}-{args.provider}"
     output = result_file(run_id)
-    if output.exists():
+    if output.exists() and not args.resume:
         print(f"Result file already exists; choose a new --run-id: {output}", file=sys.stderr)
         return 2
+    completed = result_task_ids(output) if args.resume else set()
+    if completed:
+        tasks = [task for task in tasks if task["id"] not in completed]
+        print(
+            f"resume={run_id} already_saved={len(completed)} "
+            f"remaining={len(tasks)}"
+        )
+    if not tasks:
+        print(f"No remaining compact tasks for run: {run_id}")
+        return 0
     print(f"run_id={run_id} tasks={len(tasks)} provider={args.provider}")
     for index, task in enumerate(tasks, start=1):
         workspace = RUNS / run_id / task["id"]
@@ -1536,6 +1556,11 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--limit", type=int)
     run.add_argument("--agent-timeout", type=int, default=900)
     run.add_argument("--unsafe-no-sandbox", action="store_true")
+    run.add_argument(
+        "--resume",
+        action="store_true",
+        help="append missing tasks to an existing run and skip saved task IDs",
+    )
     run.set_defaults(func=run_private)
     paired = sub.add_parser("run-paired-private")
     paired.add_argument("--run-id")

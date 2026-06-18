@@ -77,6 +77,16 @@ python3 bench.py run-large \
 
 `run-large` appends the eleventh task to the existing result file.
 
+If an automated compact-task run is interrupted, rerun the same command with
+`--resume`. Saved task IDs are skipped and the missing tasks are appended:
+
+```bash
+python3 bench.py run-private \
+  --provider command \
+  --run-id model-a \
+  --resume
+```
+
 Agent-specific examples for ZCode and OpenCode are documented in
 [docs/providers.md](docs/providers.md).
 
