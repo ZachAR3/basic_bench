@@ -1,0 +1,112 @@
+[
+  {
+    "run_id": "glm52-test1-manual",
+    "label": "GLM-5.2 desktop",
+    "model": "GLM-5.2",
+    "route": "ZCode desktop",
+    "date": "2026-06-18",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": false
+  },
+  {
+    "run_id": "glm52-test1-go",
+    "label": "GLM-5.2 Go",
+    "model": "GLM-5.2",
+    "route": "OpenCode Go",
+    "date": "2026-06-18",
+    "scope": "full",
+    "price_usd": 2.44,
+    "times_recorded": true
+  },
+  {
+    "run_id": "codex-gpt-5.5-high",
+    "label": "GPT-5.5 high",
+    "model": "GPT-5.5",
+    "route": "Codex CLI",
+    "date": "2026-06-18",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "codex-gpt-5.5-xhigh-failures",
+    "label": "GPT-5.5 xhigh targeted",
+    "model": "GPT-5.5",
+    "route": "Codex CLI",
+    "date": "2026-06-18",
+    "scope": "targeted",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "kimi-k2.7-code-opencode-go",
+    "label": "Kimi K2.7 Code",
+    "model": "Kimi K2.7 Code",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "partial",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "kimi-k2.6-opencode-go",
+    "label": "Kimi K2.6",
+    "model": "Kimi K2.6",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "minimax-m3-opencode-go",
+    "label": "MiniMax M3",
+    "model": "MiniMax M3",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "deepseek-v4-pro-opencode-go",
+    "label": "DeepSeek V4 Pro",
+    "model": "DeepSeek V4 Pro",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "mimo-v2.5-pro-opencode-go",
+    "label": "MiMo V2.5 Pro",
+    "model": "MiMo V2.5 Pro",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "qwen3.7-max-opencode-go",
+    "label": "Qwen3.7 Max",
+    "model": "Qwen3.7 Max",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  },
+  {
+    "run_id": "qwen3.7-plus-opencode-go",
+    "label": "Qwen3.7 Plus",
+    "model": "Qwen3.7 Plus",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "times_recorded": true
+  }
+]

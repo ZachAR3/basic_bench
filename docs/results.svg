@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="546" viewBox="0 0 920 546" role="img" aria-labelledby="title desc">
+<title id="title">Full-suite benchmark pass rates</title>
+<desc id="desc">Pass rates for complete eleven-task benchmark runs.</desc>
+<style>
+text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #24292f; }
+.heading { font-size: 22px; font-weight: 600; }
+.label { font-size: 15px; }
+.score { font-size: 14px; font-variant-numeric: tabular-nums; }
+.track { fill: #d8dee4; }
+.bar { fill: #2f6f9f; }
+@media (prefers-color-scheme: dark) {
+  text { fill: #e6edf3; }
+  .track { fill: #30363d; }
+  .bar { fill: #58a6d6; }
+}
+</style>
+<text x="24" y="36" class="heading">Full-suite pass rates</text>
+<text x="24" y="58" class="score">Eleven tasks, one attempt per task</text>
+<text x="24" y="92" class="label">GLM-5.2 Go</text>
+<rect x="250" y="72" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="72" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="91" class="score">9/11 (81.8%)</text>
+<text x="24" y="140" class="label">GLM-5.2 desktop</text>
+<rect x="250" y="120" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="120" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="139" class="score">9/11 (81.8%)</text>
+<text x="24" y="188" class="label">GPT-5.5 high</text>
+<rect x="250" y="168" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="168" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="187" class="score">9/11 (81.8%)</text>
+<text x="24" y="236" class="label">MiniMax M3</text>
+<rect x="250" y="216" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="216" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="235" class="score">9/11 (81.8%)</text>
+<text x="24" y="284" class="label">Qwen3.7 Max</text>
+<rect x="250" y="264" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="264" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="283" class="score">9/11 (81.8%)</text>
+<text x="24" y="332" class="label">Qwen3.7 Plus</text>
+<rect x="250" y="312" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="312" width="441.7" height="26" rx="3" class="bar"/>
+<text x="804" y="331" class="score">9/11 (81.8%)</text>
+<text x="24" y="380" class="label">DeepSeek V4 Pro</text>
+<rect x="250" y="360" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="360" width="392.6" height="26" rx="3" class="bar"/>
+<text x="804" y="379" class="score">8/11 (72.7%)</text>
+<text x="24" y="428" class="label">Kimi K2.6</text>
+<rect x="250" y="408" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="408" width="343.4" height="26" rx="3" class="bar"/>
+<text x="804" y="427" class="score">7/11 (63.6%)</text>
+<text x="24" y="476" class="label">MiMo V2.5 Pro</text>
+<rect x="250" y="456" width="540" height="26" rx="3" class="track"/>
+<rect x="250" y="456" width="294.3" height="26" rx="3" class="bar"/>
+<text x="804" y="475" class="score">6/11 (54.5%)</text>
+</svg>

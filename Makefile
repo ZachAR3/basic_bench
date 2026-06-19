@@ -1,4 +1,4 @@
-.PHONY: setup doctor list audit quality security large-quality report
+.PHONY: setup doctor list audit quality security large-quality report publish-results
 
 setup:
 	git submodule update --init --recursive
@@ -23,3 +23,6 @@ large-quality:
 
 report:
 	python3 bench.py report
+
+publish-results:
+	python3 scripts/publish_results.py

@@ -10,6 +10,7 @@ import os
 import platform
 import random
 import re
+import selectors
 import signal
 import shutil
 import subprocess
@@ -109,6 +110,13 @@ def run_cmd(
     env: dict[str, str] | None = None,
     kill_descendants: bool = False,
 ) -> dict:
+    def as_text(value: str | bytes | None) -> str:
+        if value is None:
+            return ""
+        if isinstance(value, bytes):
+            return value.decode(errors="replace")
+        return value
+
     started = time.monotonic()
     proc = None
     try:
@@ -127,8 +135,8 @@ def run_cmd(
     except subprocess.TimeoutExpired as exc:
         timed_out = True
         code = 124
-        stdout = exc.stdout or ""
-        stderr = exc.stderr or ""
+        stdout = as_text(exc.stdout)
+        stderr = as_text(exc.stderr)
         if proc is not None:
             if kill_descendants:
                 try:
@@ -138,8 +146,8 @@ def run_cmd(
             else:
                 proc.kill()
             trailing_out, trailing_err = proc.communicate()
-            stdout += trailing_out or ""
-            stderr += trailing_err or ""
+            stdout += as_text(trailing_out)
+            stderr += as_text(trailing_err)
     finally:
         if kill_descendants and proc is not None:
             try:
@@ -153,6 +161,84 @@ def run_cmd(
         "wall_seconds": round(time.monotonic() - started, 3),
         "stdout": stdout,
         "stderr": stderr,
+    }
+
+
+def run_cmd_with_idle_timeout(
+    command: list[str],
+    cwd: Path,
+    timeout: float,
+    idle_timeout: float,
+    env: dict[str, str] | None = None,
+    kill_descendants: bool = False,
+) -> dict:
+    """Run a streaming command and stop it if it produces no output."""
+    started = time.monotonic()
+    last_output = started
+    proc = subprocess.Popen(
+        command,
+        cwd=cwd,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        start_new_session=kill_descendants,
+    )
+    selector = selectors.DefaultSelector()
+    assert proc.stdout is not None
+    assert proc.stderr is not None
+    selector.register(proc.stdout, selectors.EVENT_READ, "stdout")
+    selector.register(proc.stderr, selectors.EVENT_READ, "stderr")
+    chunks: dict[str, list[bytes]] = {"stdout": [], "stderr": []}
+    timed_out = False
+    stalled = False
+
+    try:
+        while selector.get_map() or proc.poll() is None:
+            now = time.monotonic()
+            remaining = timeout - (now - started)
+            idle_remaining = idle_timeout - (now - last_output)
+            if remaining <= 0 or idle_remaining <= 0:
+                timed_out = remaining <= 0
+                stalled = idle_remaining <= 0 and not timed_out
+                if kill_descendants:
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                else:
+                    proc.kill()
+                break
+
+            events = selector.select(timeout=min(1.0, remaining, idle_remaining))
+            for key, _ in events:
+                data = os.read(key.fileobj.fileno(), 65536)
+                if data:
+                    chunks[key.data].append(data)
+                    last_output = time.monotonic()
+                else:
+                    selector.unregister(key.fileobj)
+
+        trailing_out, trailing_err = proc.communicate()
+        if trailing_out:
+            chunks["stdout"].append(trailing_out)
+        if trailing_err:
+            chunks["stderr"].append(trailing_err)
+    finally:
+        selector.close()
+        if kill_descendants:
+            try:
+                os.killpg(proc.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+
+    return {
+        "command": command,
+        "exit_code": 124 if timed_out or stalled else proc.returncode,
+        "timed_out": timed_out,
+        "stalled": stalled,
+        "wall_seconds": round(time.monotonic() - started, 3),
+        "stdout": b"".join(chunks["stdout"]).decode(errors="replace"),
+        "stderr": b"".join(chunks["stderr"]).decode(errors="replace"),
     }
 
 
@@ -348,7 +434,119 @@ def sandboxed_agent_command(command: list[str], workspace: Path) -> list[str]:
     return ["/usr/bin/sandbox-exec", "-f", str(sandbox_profile(workspace)), *command]
 
 
-def run_agent(command: list[str], workspace: Path, timeout: int, env: dict[str, str], unsafe: bool) -> dict:
+def opencode_session_id(output: str) -> str | None:
+    matches = re.findall(r'"sessionID"\s*:\s*"([^"]+)"', output)
+    return matches[-1] if matches else None
+
+
+def opencode_retryable_error(output: str) -> bool:
+    for line in output.splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        error = event.get("error", {})
+        data = error.get("data", {}) if isinstance(error, dict) else {}
+        if data.get("isRetryable") is True:
+            return True
+        status = data.get("statusCode")
+        if isinstance(status, int) and (status == 429 or status >= 500):
+            return True
+    return False
+
+
+def run_opencode_agent(
+    command: list[str],
+    workspace: Path,
+    timeout: int,
+    env: dict[str, str],
+    unsafe: bool,
+) -> dict:
+    stall_timeout = max(30, int(os.environ.get("OPENCODE_STALL_TIMEOUT", "300")))
+    deadline = time.monotonic() + timeout
+    attempts = []
+    current = command
+    session_id = None
+
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            break
+        attempt_command = (
+            current if unsafe else sandboxed_agent_command(current, workspace)
+        )
+        attempt = run_cmd_with_idle_timeout(
+            attempt_command,
+            workspace,
+            remaining,
+            min(stall_timeout, remaining),
+            env,
+            kill_descendants=True,
+        )
+        attempts.append(attempt)
+        session_id = opencode_session_id(attempt["stdout"]) or session_id
+        retryable = attempt["stalled"] or opencode_retryable_error(
+            attempt["stdout"] + attempt["stderr"]
+        )
+        if attempt["exit_code"] == 0 and not attempt["stalled"]:
+            break
+        if not retryable:
+            break
+
+        if session_id is None:
+            current = command
+        else:
+            current = command[:-1] + [
+                "--session",
+                session_id,
+                (
+                    "Continue working on the benchmark task from the current "
+                    "workspace state. The previous provider call stopped "
+                    "responding. Finish the implementation, run appropriate "
+                    "local checks, and return normally."
+                ),
+            ]
+        time.sleep(min(2, max(0, deadline - time.monotonic())))
+
+    stdout = "".join(attempt["stdout"] for attempt in attempts)
+    stderr = "".join(attempt["stderr"] for attempt in attempts)
+    elapsed = round(sum(attempt["wall_seconds"] for attempt in attempts), 3)
+    completed = (
+        bool(attempts)
+        and attempts[-1]["exit_code"] == 0
+        and not attempts[-1]["stalled"]
+    )
+    final = attempts[-1] if attempts else {}
+    exhausted = not completed and time.monotonic() >= deadline
+    return {
+        "command": command,
+        "exit_code": (
+            124
+            if exhausted or final.get("stalled")
+            else final.get("exit_code", 124)
+        ),
+        "timed_out": exhausted
+        or bool(final.get("timed_out"))
+        or bool(final.get("stalled")),
+        "stalled": bool(final.get("stalled")),
+        "continuations": max(0, len(attempts) - 1),
+        "session_id": session_id,
+        "wall_seconds": elapsed,
+        "stdout": stdout,
+        "stderr": stderr,
+    }
+
+
+def run_agent(
+    command: list[str],
+    workspace: Path,
+    timeout: int,
+    env: dict[str, str],
+    unsafe: bool,
+    provider: str | None = None,
+) -> dict:
+    if provider == "opencode":
+        return run_opencode_agent(command, workspace, timeout, env, unsafe)
     if not unsafe:
         command = sandboxed_agent_command(command, workspace)
     return run_cmd(command, workspace, timeout, env, kill_descendants=True)
@@ -655,7 +853,14 @@ def run_private(args: argparse.Namespace) -> int:
             )
             return 2
         print(f"[{index}/{len(tasks)}] {task['id']}")
-        agent = run_agent(command, workspace, args.agent_timeout, env, args.unsafe_no_sandbox)
+        agent = run_agent(
+            command,
+            workspace,
+            args.agent_timeout,
+            env,
+            args.unsafe_no_sandbox,
+            args.provider,
+        )
         patch = git_metrics(workspace)
         score = score_agent_workspace(
             task,
@@ -713,7 +918,14 @@ def run_paired_private(args: argparse.Namespace) -> int:
                 print("Direct ZCode OAuth state is missing.", file=sys.stderr)
                 return 2
             print(f"[{index + 1}/{len(tasks)}] {task['id']} via {provider}")
-            agent = run_agent(command, workspace, args.agent_timeout, env, args.unsafe_no_sandbox)
+            agent = run_agent(
+                command,
+                workspace,
+                args.agent_timeout,
+                env,
+                args.unsafe_no_sandbox,
+                provider,
+            )
             patch = git_metrics(workspace)
             score = score_agent_workspace(
                 task,
@@ -1049,6 +1261,7 @@ def run_large(args: argparse.Namespace) -> int:
         args.agent_timeout,
         env,
         args.unsafe_no_sandbox,
+        args.provider,
     )
     patch = git_metrics(workspace)
     score = score_agent_workspace(
@@ -1531,7 +1744,14 @@ def smoke_provider(args: argparse.Namespace) -> int:
     if env.get("ZCODE_DIRECT_LOGIN_MISSING"):
         print("Direct ZCode OAuth state is missing.", file=sys.stderr)
         return 2
-    result = run_agent(command, workspace, args.timeout, env, args.unsafe_no_sandbox)
+    result = run_agent(
+        command,
+        workspace,
+        args.timeout,
+        env,
+        args.unsafe_no_sandbox,
+        args.provider,
+    )
     print(result["stdout"])
     if result["stderr"]:
         print(result["stderr"], file=sys.stderr)

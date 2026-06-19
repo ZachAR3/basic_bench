@@ -138,6 +138,48 @@ python3 bench.py run-large --provider opencode --run-id opencode-model
 
 Local provider files are ignored by Git.
 
+The OpenCode provider watches the JSON event stream. If a provider call emits
+nothing for five minutes, the CLI process is stopped and the same session is
+resumed with a `continue` instruction. Retryable API errors, including rate
+limits and server errors, use the same recovery path. The overall
+`--agent-timeout` still applies across all continuation attempts.
+
+Change the inactivity threshold when needed:
+
+```bash
+export OPENCODE_STALL_TIMEOUT=600
+```
+
+Use one OpenCode run at a time. Concurrent subscription requests can increase
+rate limiting and make wall-clock comparisons less meaningful.
+
+Run the maintained OpenCode Go comparison matrix sequentially:
+
+```bash
+export OPENCODE_GO_API_KEY='...'
+./scripts/run_opencode_go_matrix.sh
+```
+
+The script covers Kimi K2.6, MiniMax M3, DeepSeek V4 Pro, MiMo V2.5 Pro,
+Qwen3.7 Max, and Qwen3.7 Plus. Each model receives a separate run ID and
+workspace.
+
+For a long run launched outside the shell that holds the key, place it in the
+current macOS login session without printing it:
+
+```bash
+read -s "OPENCODE_GO_API_KEY?OpenCode Go key: "
+echo
+launchctl setenv OPENCODE_GO_API_KEY "$OPENCODE_GO_API_KEY"
+unset OPENCODE_GO_API_KEY
+```
+
+Remove it after the run:
+
+```bash
+launchctl unsetenv OPENCODE_GO_API_KEY
+```
+
 ### OpenCode Go with Kimi K2.7 Code
 
 ```bash

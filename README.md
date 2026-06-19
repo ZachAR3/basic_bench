@@ -7,6 +7,10 @@ The suite contains ten compact Python tasks and one repository-scale task based
 on Click 8.4.0. It is intended for local comparisons between models, providers,
 and agent runtimes.
 
+[View benchmark results and reviewed evaluations](evaluation.d/README.md).
+
+![Full-suite benchmark pass rates](docs/results.svg)
+
 ## Setup
 
 Requirements:
@@ -142,8 +146,16 @@ python3 bench.py show-results --run-id model-a
 Generated results are ignored by Git. Add reviewed summaries under
 `evaluation.d/` when publishing findings.
 
-The current three-route comparison is in
-[evaluation.d/2026-06-18-glm-5.2-gpt-5.5.md](evaluation.d/2026-06-18-glm-5.2-gpt-5.5.md).
+Published comparisons and per-task timings are indexed in
+[evaluation.d/](evaluation.d/README.md).
+
+The tracked machine-readable summary is
+[evaluation.d/results.json](evaluation.d/results.json). After adding local raw
+results and metadata, regenerate both the summary and chart with:
+
+```bash
+make publish-results
+```
 
 ## Methodology
 
