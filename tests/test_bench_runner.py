@@ -50,6 +50,82 @@ class OpenCodeRecoveryTests(unittest.TestCase):
         self.assertEqual(result["exit_code"], 0)
         self.assertEqual(result["continuations"], 1)
         self.assertEqual(commands[1][-3:-1], ["--session", "ses_test"])
+        self.assertEqual(result["fresh_starts"], 0)
+
+    def test_lost_context_starts_fresh_in_same_workspace(self):
+        attempts = [
+            self.result(
+                exit_code=124,
+                stalled=True,
+                stdout='{"sessionID":"ses_test"}\n',
+            ),
+            self.result(
+                stdout=(
+                    '{"sessionID":"ses_test","type":"text",'
+                    '"part":{"text":"CONTEXT_LOST"}}\n'
+                )
+            ),
+            self.result(stdout='{"sessionID":"ses_fresh","type":"step_finish"}\n'),
+        ]
+        commands = []
+
+        def fake_run(command, *args, **kwargs):
+            commands.append(command)
+            return attempts.pop(0)
+
+        original = ["opencode", "run", "--format", "json", "task prompt"]
+        with (
+            mock.patch.object(bench, "run_cmd_with_idle_timeout", fake_run),
+            mock.patch.object(bench.time, "sleep"),
+        ):
+            result = bench.run_opencode_agent(
+                original,
+                Path("."),
+                30,
+                {},
+                True,
+            )
+
+        self.assertEqual(result["exit_code"], 0)
+        self.assertEqual(result["fresh_starts"], 1)
+        self.assertEqual(commands[2], original)
+
+    def test_second_silence_starts_fresh(self):
+        attempts = [
+            self.result(
+                exit_code=124,
+                stalled=True,
+                stdout='{"sessionID":"ses_test"}\n',
+            ),
+            self.result(
+                exit_code=124,
+                stalled=True,
+                stdout='{"sessionID":"ses_test"}\n',
+            ),
+            self.result(stdout='{"sessionID":"ses_fresh","type":"step_finish"}\n'),
+        ]
+        commands = []
+
+        def fake_run(command, *args, **kwargs):
+            commands.append(command)
+            return attempts.pop(0)
+
+        original = ["opencode", "run", "task prompt"]
+        with (
+            mock.patch.object(bench, "run_cmd_with_idle_timeout", fake_run),
+            mock.patch.object(bench.time, "sleep"),
+        ):
+            result = bench.run_opencode_agent(
+                original,
+                Path("."),
+                30,
+                {},
+                True,
+            )
+
+        self.assertEqual(result["exit_code"], 0)
+        self.assertEqual(result["fresh_starts"], 1)
+        self.assertEqual(commands[2], original)
 
     def test_retryable_api_error_is_continued(self):
         attempts = [

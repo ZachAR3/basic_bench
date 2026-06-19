@@ -16,61 +16,75 @@
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": null,
+      "total_tokens": null,
+      "wasted_tokens": null,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": null
+          "seconds": null,
+          "tokens": null
         }
       ]
     },
@@ -88,61 +102,75 @@
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": 2498.491,
+      "total_tokens": 5056515,
+      "wasted_tokens": 520304,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 53.301
+          "seconds": 53.301,
+          "tokens": 103726
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 43.298
+          "seconds": 43.298,
+          "tokens": 83780
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 35.032
+          "seconds": 35.032,
+          "tokens": 88837
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 269.472
+          "seconds": 269.472,
+          "tokens": 311871
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 70.969
+          "seconds": 70.969,
+          "tokens": 117329
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 43.638
+          "seconds": 43.638,
+          "tokens": 79400
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 172.398
+          "seconds": 172.398,
+          "tokens": 208433
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 57.362
+          "seconds": 57.362,
+          "tokens": 103486
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 184.242
+          "seconds": 184.242,
+          "tokens": 175034
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 900.04
+          "seconds": 900.04,
+          "tokens": null
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 668.739
+          "seconds": 668.739,
+          "tokens": 3784619
         }
       ]
     },
@@ -160,61 +188,75 @@
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": 945.139,
+      "total_tokens": 1058722,
+      "wasted_tokens": 122856,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 42.301
+          "seconds": 42.301,
+          "tokens": 75104
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 43.936
+          "seconds": 43.936,
+          "tokens": 75370
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 42.829
+          "seconds": 42.829,
+          "tokens": 52977
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 57.022
+          "seconds": 57.022,
+          "tokens": 56514
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 65.348
+          "seconds": 65.348,
+          "tokens": 64972
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 63.173
+          "seconds": 63.173,
+          "tokens": 60128
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 68.834
+          "seconds": 68.834,
+          "tokens": 66342
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 63.039
+          "seconds": 63.039,
+          "tokens": 65840
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 99.378
+          "seconds": 99.378,
+          "tokens": 105388
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 224.747
+          "seconds": 224.747,
+          "tokens": 175689
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 174.532
+          "seconds": 174.532,
+          "tokens": 260398
         }
       ]
     },
@@ -232,16 +274,21 @@
       "attempted": 2,
       "pass_rate": 0.0,
       "total_seconds": 202.258,
+      "total_tokens": 183570,
+      "wasted_tokens": 183570,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 86.215
+          "seconds": 86.215,
+          "tokens": 81688
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 116.043
+          "seconds": 116.043,
+          "tokens": 101882
         }
       ]
     },
@@ -251,59 +298,85 @@
       "model": "Kimi K2.7 Code",
       "route": "OpenCode Go",
       "date": "2026-06-19",
-      "scope": "partial",
-      "price_usd": null,
+      "scope": "full",
+      "price_usd": 1.06,
+      "price_note": "Reported before tasks 10 and 11 were rerun",
       "times_recorded": true,
-      "complete": false,
-      "passed": 6,
-      "attempted": 9,
-      "pass_rate": 66.7,
-      "total_seconds": 833.082,
+      "wasted_tokens_extra_estimate": 492000,
+      "complete": true,
+      "passed": 8,
+      "attempted": 11,
+      "pass_rate": 72.7,
+      "total_seconds": 1922.853,
+      "total_tokens": 5178660,
+      "wasted_tokens": 1051450,
+      "wasted_tokens_estimated": true,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 49.974
+          "seconds": 49.974,
+          "tokens": 58582
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 30.433
+          "seconds": 30.433,
+          "tokens": 59550
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 30.655
+          "seconds": 30.655,
+          "tokens": 52024
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 286.618
+          "seconds": 286.618,
+          "tokens": 333001
         },
         {
           "task_id": "schema-migration",
           "passed": false,
-          "seconds": 82.304
+          "seconds": 82.304,
+          "tokens": 73593
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 43.507
+          "seconds": 43.507,
+          "tokens": 86175
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 125.716
+          "seconds": 125.716,
+          "tokens": 152856
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 53.11
+          "seconds": 53.11,
+          "tokens": 48054
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 130.765
+          "seconds": 130.765,
+          "tokens": 164104
+        },
+        {
+          "task_id": "webdav-endpoint",
+          "passed": true,
+          "seconds": 396.155,
+          "tokens": 753747
+        },
+        {
+          "task_id": "click-context-provenance",
+          "passed": true,
+          "seconds": 693.616,
+          "tokens": 3396974
         }
       ]
     },
@@ -314,68 +387,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 2.19,
       "times_recorded": true,
       "complete": true,
       "passed": 7,
       "attempted": 11,
       "pass_rate": 63.6,
       "total_seconds": 3080.222,
+      "total_tokens": 1735928,
+      "wasted_tokens": 419400,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 104.452
+          "seconds": 104.452,
+          "tokens": 76385
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 50.893
+          "seconds": 50.893,
+          "tokens": 80268
         },
         {
           "task_id": "rate-window",
           "passed": false,
-          "seconds": 320.939
+          "seconds": 320.939,
+          "tokens": 13490
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 474.589
+          "seconds": 474.589,
+          "tokens": 152564
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 247.82
+          "seconds": 247.82,
+          "tokens": 168991
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 76.405
+          "seconds": 76.405,
+          "tokens": 55168
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 193.461
+          "seconds": 193.461,
+          "tokens": 154319
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 65.807
+          "seconds": 65.807,
+          "tokens": 76066
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 718.519
+          "seconds": 718.519,
+          "tokens": 262464
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 399.687
+          "seconds": 399.687,
+          "tokens": 597186
         },
         {
           "task_id": "click-context-provenance",
           "passed": false,
-          "seconds": 427.65
+          "seconds": 427.65,
+          "tokens": 99027
         }
       ]
     },
@@ -386,68 +473,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 0.3,
       "times_recorded": true,
       "complete": true,
       "passed": 9,
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": 1835.751,
+      "total_tokens": 8654476,
+      "wasted_tokens": 289762,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 60.696
+          "seconds": 60.696,
+          "tokens": 137458
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 18.454
+          "seconds": 18.454,
+          "tokens": 56501
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 35.819
+          "seconds": 35.819,
+          "tokens": 59702
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 111.256
+          "seconds": 111.256,
+          "tokens": 178407
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 66.729
+          "seconds": 66.729,
+          "tokens": 73411
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 42.358
+          "seconds": 42.358,
+          "tokens": 70361
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 79.677
+          "seconds": 79.677,
+          "tokens": 111355
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 37.461
+          "seconds": 37.461,
+          "tokens": 62896
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 63.125
+          "seconds": 63.125,
+          "tokens": 158815
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 288.204
+          "seconds": 288.204,
+          "tokens": 554278
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 1031.972
+          "seconds": 1031.972,
+          "tokens": 7191292
         }
       ]
     },
@@ -458,68 +559,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 1.22,
       "times_recorded": true,
       "complete": true,
       "passed": 8,
       "attempted": 11,
       "pass_rate": 72.7,
       "total_seconds": 2124.103,
+      "total_tokens": 4360779,
+      "wasted_tokens": 477436,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 99.873
+          "seconds": 99.873,
+          "tokens": 114024
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 56.874
+          "seconds": 56.874,
+          "tokens": 66259
         },
         {
           "task_id": "rate-window",
           "passed": false,
-          "seconds": 87.889
+          "seconds": 87.889,
+          "tokens": 142310
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 243.971
+          "seconds": 243.971,
+          "tokens": 272889
         },
         {
           "task_id": "schema-migration",
           "passed": false,
-          "seconds": 99.724
+          "seconds": 99.724,
+          "tokens": 62237
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 47.895
+          "seconds": 47.895,
+          "tokens": 74900
         },
         {
           "task_id": "stable-toposort",
           "passed": true,
-          "seconds": 193.893
+          "seconds": 193.893,
+          "tokens": 180879
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 37.64
+          "seconds": 37.64,
+          "tokens": 64779
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 94.776
+          "seconds": 94.776,
+          "tokens": 58129
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 342.402
+          "seconds": 342.402,
+          "tokens": 589127
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 819.166
+          "seconds": 819.166,
+          "tokens": 2735246
         }
       ]
     },
@@ -530,68 +645,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 1.17,
       "times_recorded": true,
       "complete": true,
       "passed": 6,
       "attempted": 11,
       "pass_rate": 54.5,
       "total_seconds": 6662.91,
+      "total_tokens": 2638918,
+      "wasted_tokens": 976047,
+      "wasted_tokens_estimated": true,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": false,
-          "seconds": 1800.05
+          "seconds": 1800.05,
+          "tokens": null
         },
         {
           "task_id": "config-precedence",
           "passed": false,
-          "seconds": 1800.043
+          "seconds": 1800.043,
+          "tokens": null
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 1084.739
+          "seconds": 1084.739,
+          "tokens": 76948
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 356.517
+          "seconds": 356.517,
+          "tokens": 270311
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 71.733
+          "seconds": 71.733,
+          "tokens": 72184
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 33.873
+          "seconds": 33.873,
+          "tokens": 68061
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 95.206
+          "seconds": 95.206,
+          "tokens": 116145
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 48.517
+          "seconds": 48.517,
+          "tokens": 81143
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 148.846
+          "seconds": 148.846,
+          "tokens": 168696
         },
         {
           "task_id": "webdav-endpoint",
           "passed": false,
-          "seconds": 308.694
+          "seconds": 308.694,
+          "tokens": 392303
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 914.692
+          "seconds": 914.692,
+          "tokens": 1393127
         }
       ]
     },
@@ -602,68 +731,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 2.57,
       "times_recorded": true,
       "complete": true,
       "passed": 9,
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": 1796.132,
+      "total_tokens": 2886025,
+      "wasted_tokens": 179269,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 51.312
+          "seconds": 51.312,
+          "tokens": 89579
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 46.339
+          "seconds": 46.339,
+          "tokens": 76357
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 47.025
+          "seconds": 47.025,
+          "tokens": 61050
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 82.098
+          "seconds": 82.098,
+          "tokens": 78213
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 49.934
+          "seconds": 49.934,
+          "tokens": 44675
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 39.189
+          "seconds": 39.189,
+          "tokens": 67099
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 62.923
+          "seconds": 62.923,
+          "tokens": 101056
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 44.417
+          "seconds": 44.417,
+          "tokens": 42653
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 98.624
+          "seconds": 98.624,
+          "tokens": 82321
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 303.532
+          "seconds": 303.532,
+          "tokens": 254971
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 970.739
+          "seconds": 970.739,
+          "tokens": 1988051
         }
       ]
     },
@@ -674,68 +817,82 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": null,
+      "price_usd": 0.39,
       "times_recorded": true,
       "complete": true,
       "passed": 9,
       "attempted": 11,
       "pass_rate": 81.8,
       "total_seconds": 1660.33,
+      "total_tokens": 4031252,
+      "wasted_tokens": 179142,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
-          "seconds": 62.775
+          "seconds": 62.775,
+          "tokens": 90749
         },
         {
           "task_id": "config-precedence",
           "passed": true,
-          "seconds": 38.435
+          "seconds": 38.435,
+          "tokens": 60846
         },
         {
           "task_id": "rate-window",
           "passed": true,
-          "seconds": 35.82
+          "seconds": 35.82,
+          "tokens": 59040
         },
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
-          "seconds": 129.414
+          "seconds": 129.414,
+          "tokens": 107431
         },
         {
           "task_id": "schema-migration",
           "passed": true,
-          "seconds": 47.89
+          "seconds": 47.89,
+          "tokens": 44114
         },
         {
           "task_id": "csv-unicode",
           "passed": true,
-          "seconds": 47.65
+          "seconds": 47.65,
+          "tokens": 74759
         },
         {
           "task_id": "stable-toposort",
           "passed": false,
-          "seconds": 62.368
+          "seconds": 62.368,
+          "tokens": 71711
         },
         {
           "task_id": "async-retry",
           "passed": true,
-          "seconds": 50.617
+          "seconds": 50.617,
+          "tokens": 51617
         },
         {
           "task_id": "dst-recurrence",
           "passed": true,
-          "seconds": 58.494
+          "seconds": 58.494,
+          "tokens": 67150
         },
         {
           "task_id": "webdav-endpoint",
           "passed": true,
-          "seconds": 331.163
+          "seconds": 331.163,
+          "tokens": 261735
         },
         {
           "task_id": "click-context-provenance",
           "passed": true,
-          "seconds": 795.704
+          "seconds": 795.704,
+          "tokens": 3142100
         }
       ]
     }

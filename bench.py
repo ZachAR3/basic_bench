@@ -455,6 +455,37 @@ def opencode_retryable_error(output: str) -> bool:
     return False
 
 
+def opencode_context_lost(output: str) -> bool:
+    normalized = output.upper()
+    return "CONTEXT_LOST" in normalized or "CONTEXT LOST" in normalized
+
+
+def opencode_session_unusable(output: str) -> bool:
+    normalized = output.lower()
+    markers = (
+        "must not be empty",
+        "session not found",
+        "unknown session",
+        "invalid session",
+        "conversation not found",
+    )
+    return any(marker in normalized for marker in markers)
+
+
+def opencode_continue_command(command: list[str], session_id: str) -> list[str]:
+    return command[:-1] + [
+        "--session",
+        session_id,
+        (
+            "Continue working on the benchmark task from the current workspace "
+            "state. Preserve and build on all work already completed. If this "
+            "session no longer contains the task context, reply with exactly "
+            "CONTEXT_LOST and do nothing else. Otherwise finish the "
+            "implementation, run appropriate local checks, and return normally."
+        ),
+    ]
+
+
 def run_opencode_agent(
     command: list[str],
     workspace: Path,
@@ -467,6 +498,9 @@ def run_opencode_agent(
     attempts = []
     current = command
     session_id = None
+    continued_session = False
+    context_continuations = 0
+    fresh_starts = 0
 
     while True:
         remaining = deadline - time.monotonic()
@@ -485,27 +519,39 @@ def run_opencode_agent(
         )
         attempts.append(attempt)
         session_id = opencode_session_id(attempt["stdout"]) or session_id
-        retryable = attempt["stalled"] or opencode_retryable_error(
-            attempt["stdout"] + attempt["stderr"]
-        )
-        if attempt["exit_code"] == 0 and not attempt["stalled"]:
-            break
-        if not retryable:
+        output = attempt["stdout"] + attempt["stderr"]
+        context_lost = opencode_context_lost(output)
+        retryable = attempt["stalled"] or opencode_retryable_error(output)
+        unusable_session = opencode_session_unusable(output)
+
+        if (
+            attempt["exit_code"] == 0
+            and not attempt["stalled"]
+            and not context_lost
+        ):
             break
 
-        if session_id is None:
+        if context_lost or unusable_session:
+            # Start a clean conversation in the same workspace. Existing file
+            # changes remain available, so completed work is not discarded.
             current = command
+            session_id = None
+            continued_session = False
+            fresh_starts += 1
+        elif retryable and session_id is not None and not continued_session:
+            current = opencode_continue_command(command, session_id)
+            continued_session = True
+            context_continuations += 1
+        elif continued_session and retryable:
+            current = command
+            session_id = None
+            continued_session = False
+            fresh_starts += 1
+        elif retryable:
+            current = command
+            fresh_starts += 1
         else:
-            current = command[:-1] + [
-                "--session",
-                session_id,
-                (
-                    "Continue working on the benchmark task from the current "
-                    "workspace state. The previous provider call stopped "
-                    "responding. Finish the implementation, run appropriate "
-                    "local checks, and return normally."
-                ),
-            ]
+            break
         time.sleep(min(2, max(0, deadline - time.monotonic())))
 
     stdout = "".join(attempt["stdout"] for attempt in attempts)
@@ -529,7 +575,9 @@ def run_opencode_agent(
         or bool(final.get("timed_out"))
         or bool(final.get("stalled")),
         "stalled": bool(final.get("stalled")),
-        "continuations": max(0, len(attempts) - 1),
+        "attempts": len(attempts),
+        "continuations": context_continuations,
+        "fresh_starts": fresh_starts,
         "session_id": session_id,
         "wall_seconds": elapsed,
         "stdout": stdout,

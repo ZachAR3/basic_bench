@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import html
 import json
+import statistics
 from pathlib import Path
 
 
@@ -24,6 +25,51 @@ def load_records(path: Path) -> list[dict]:
     ]
 
 
+def provider_tokens(record: dict) -> int | None:
+    stdout = record["agent"].get("stdout", "")
+    provider = record.get("provider", "")
+
+    if provider == "opencode":
+        total = 0
+        found = False
+        for line in stdout.splitlines():
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            part = event.get("part") or {}
+            if part.get("type") == "step-finish":
+                tokens = part.get("tokens") or {}
+                total += int(tokens.get("total") or 0)
+                found = True
+        return total if found else None
+
+    if provider == "zcode-go":
+        try:
+            usage = json.loads(stdout).get("usage", {})
+        except json.JSONDecodeError:
+            return None
+        value = usage.get("totalTokens")
+        return int(value) if value is not None else None
+
+    if provider.startswith("codex-"):
+        usage = None
+        for line in stdout.splitlines():
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if event.get("type") == "turn.completed":
+                usage = event.get("usage", {})
+        if usage is None:
+            return None
+        return int(usage.get("input_tokens", 0)) + int(
+            usage.get("output_tokens", 0)
+        )
+
+    return None
+
+
 def summarize(meta: dict, records: list[dict]) -> dict:
     tasks = []
     for record in records:
@@ -35,12 +81,39 @@ def summarize(meta: dict, records: list[dict]) -> dict:
                 "task_id": record["task_id"],
                 "passed": bool(record["score"]["passed"]),
                 "seconds": round(seconds, 3) if seconds is not None else None,
+                "tokens": provider_tokens(record),
             }
         )
 
     attempted = len(tasks)
     passed = sum(task["passed"] for task in tasks)
     total_seconds = sum(task["seconds"] or 0 for task in tasks)
+    compact_token_counts = [
+        task["tokens"]
+        for task in tasks
+        if task["task_id"] != "click-context-provenance"
+        and task["tokens"] is not None
+        and task["tokens"] > 0
+    ]
+    fallback_tokens = (
+        round(statistics.median(compact_token_counts))
+        if compact_token_counts
+        else 0
+    )
+    wasted_tokens = 0
+    wasted_estimated = False
+    for task in tasks:
+        if task["passed"]:
+            continue
+        if task["tokens"] is not None and task["tokens"] > 0:
+            wasted_tokens += task["tokens"]
+        elif fallback_tokens:
+            wasted_tokens += fallback_tokens
+            wasted_estimated = True
+    extra_waste = int(meta.get("wasted_tokens_extra_estimate", 0))
+    if extra_waste:
+        wasted_tokens += extra_waste
+        wasted_estimated = True
     complete = meta["scope"] == "full" and attempted == FULL_TASK_COUNT
     return {
         **meta,
@@ -51,6 +124,13 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         "total_seconds": (
             round(total_seconds, 3) if meta["times_recorded"] else None
         ),
+        "total_tokens": (
+            sum(task["tokens"] or 0 for task in tasks)
+            if any(task["tokens"] is not None for task in tasks)
+            else None
+        ),
+        "wasted_tokens": wasted_tokens or None,
+        "wasted_tokens_estimated": wasted_estimated,
         "tasks": tasks,
     }
 

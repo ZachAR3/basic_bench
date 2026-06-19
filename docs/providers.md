@@ -140,9 +140,12 @@ Local provider files are ignored by Git.
 
 The OpenCode provider watches the JSON event stream. If a provider call emits
 nothing for five minutes, the CLI process is stopped and the same session is
-resumed with a `continue` instruction. Retryable API errors, including rate
-limits and server errors, use the same recovery path. The overall
-`--agent-timeout` still applies across all continuation attempts.
+resumed first. The continuation is instructed to return `CONTEXT_LOST` if its
+conversation history is unavailable. A lost context, unusable session, or
+second silent call starts a fresh session in the same workspace, preserving
+files already changed. Retryable API errors, including rate limits and server
+errors, use the same context-first recovery path. The overall
+`--agent-timeout` applies across all attempts.
 
 Change the inactivity threshold when needed:
 

@@ -45,9 +45,11 @@
     "model": "Kimi K2.7 Code",
     "route": "OpenCode Go",
     "date": "2026-06-19",
-    "scope": "partial",
-    "price_usd": null,
-    "times_recorded": true
+    "scope": "full",
+    "price_usd": 1.06,
+    "price_note": "Reported before tasks 10 and 11 were rerun",
+    "times_recorded": true,
+    "wasted_tokens_extra_estimate": 492000
   },
   {
     "run_id": "kimi-k2.6-opencode-go",
@@ -56,7 +58,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 2.19,
     "times_recorded": true
   },
   {
@@ -66,7 +68,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 0.3,
     "times_recorded": true
   },
   {
@@ -76,7 +78,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 1.22,
     "times_recorded": true
   },
   {
@@ -86,7 +88,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 1.17,
     "times_recorded": true
   },
   {
@@ -96,7 +98,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 2.57,
     "times_recorded": true
   },
   {
@@ -106,7 +108,7 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": null,
+    "price_usd": 0.39,
     "times_recorded": true
   }
 ]
