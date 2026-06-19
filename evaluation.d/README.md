@@ -6,21 +6,22 @@ machine-specific paths.
 
 ## Summary
 
-Wasted tokens are estimated provider token volume for tasks that failed
-grading. Failed tasks with no usage response use the median completed compact
-task for that model. Kimi K2.7 also includes two abandoned sessions. These
-figures estimate unsuccessful inference volume, not exact billing.
+Wasted tokens are provider-reported tokens from completed requests associated
+with tasks that failed grading. Silent stalled requests and no-output timeouts
+count as zero because no usage was returned and they do not appear to have
+been charged. These figures measure unsuccessful inference volume, not exact
+billing.
 
 | Model and route | Score | Price | Estimated wasted tokens |
 |---|---:|---:|---:|
 | GLM-5.2, ZCode desktop | 9/11 | Not recorded | Not recorded |
 | GLM-5.2, OpenCode Go | 9/11 | $2.44 | 520,304 |
 | GPT-5.5 high, Codex CLI | 9/11 | Not recorded | 122,856 |
-| Kimi K2.7 Code, OpenCode Go | 8/11 | $1.06 before final two tasks | ~1,051,450 |
+| Kimi K2.7 Code, OpenCode Go | 8/11 | $1.06 before final two tasks | 559,450 |
 | Kimi K2.6, OpenCode Go | 7/11 | $2.19 | 419,400 |
 | MiniMax M3, OpenCode Go | 9/11 | $0.30 | 289,762 |
 | DeepSeek V4 Pro, OpenCode Go | 8/11 | $1.22 | 477,436 |
-| MiMo V2.5 Pro, OpenCode Go | 6/11 | $1.17 | ~976,047 |
+| MiMo V2.5 Pro, OpenCode Go | 6/11 | $1.17 | 778,759 |
 | Qwen3.7 Max, OpenCode Go | 9/11 | $2.57 | 179,269 |
 | Qwen3.7 Plus, OpenCode Go | 9/11 | $0.39 | 179,142 |
 

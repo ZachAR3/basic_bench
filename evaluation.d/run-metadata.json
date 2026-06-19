@@ -48,8 +48,7 @@
     "scope": "full",
     "price_usd": 1.06,
     "price_note": "Reported before tasks 10 and 11 were rerun",
-    "times_recorded": true,
-    "wasted_tokens_extra_estimate": 492000
+    "times_recorded": true
   },
   {
     "run_id": "kimi-k2.6-opencode-go",

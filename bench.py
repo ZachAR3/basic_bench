@@ -439,6 +439,20 @@ def opencode_session_id(output: str) -> str | None:
     return matches[-1] if matches else None
 
 
+def opencode_reported_tokens(output: str) -> int:
+    total = 0
+    for line in output.splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        part = event.get("part") or {}
+        if part.get("type") == "step-finish":
+            tokens = part.get("tokens") or {}
+            total += int(tokens.get("total") or 0)
+    return total
+
+
 def opencode_retryable_error(output: str) -> bool:
     for line in output.splitlines():
         try:
@@ -501,6 +515,8 @@ def run_opencode_agent(
     continued_session = False
     context_continuations = 0
     fresh_starts = 0
+    context_tokens = 0
+    abandoned_tokens = 0
 
     while True:
         remaining = deadline - time.monotonic()
@@ -520,6 +536,7 @@ def run_opencode_agent(
         attempts.append(attempt)
         session_id = opencode_session_id(attempt["stdout"]) or session_id
         output = attempt["stdout"] + attempt["stderr"]
+        context_tokens += opencode_reported_tokens(attempt["stdout"])
         context_lost = opencode_context_lost(output)
         retryable = attempt["stalled"] or opencode_retryable_error(output)
         unusable_session = opencode_session_unusable(output)
@@ -538,6 +555,8 @@ def run_opencode_agent(
             session_id = None
             continued_session = False
             fresh_starts += 1
+            abandoned_tokens += context_tokens
+            context_tokens = 0
         elif retryable and session_id is not None and not continued_session:
             current = opencode_continue_command(command, session_id)
             continued_session = True
@@ -547,9 +566,13 @@ def run_opencode_agent(
             session_id = None
             continued_session = False
             fresh_starts += 1
+            abandoned_tokens += context_tokens
+            context_tokens = 0
         elif retryable:
             current = command
             fresh_starts += 1
+            abandoned_tokens += context_tokens
+            context_tokens = 0
         else:
             break
         time.sleep(min(2, max(0, deadline - time.monotonic())))
@@ -578,6 +601,7 @@ def run_opencode_agent(
         "attempts": len(attempts),
         "continuations": context_continuations,
         "fresh_starts": fresh_starts,
+        "abandoned_tokens": abandoned_tokens,
         "session_id": session_id,
         "wall_seconds": elapsed,
         "stdout": stdout,

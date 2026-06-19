@@ -57,7 +57,10 @@ class OpenCodeRecoveryTests(unittest.TestCase):
             self.result(
                 exit_code=124,
                 stalled=True,
-                stdout='{"sessionID":"ses_test"}\n',
+                stdout=(
+                    '{"sessionID":"ses_test"}\n'
+                    '{"part":{"type":"step-finish","tokens":{"total":123}}}\n'
+                ),
             ),
             self.result(
                 stdout=(
@@ -88,6 +91,7 @@ class OpenCodeRecoveryTests(unittest.TestCase):
 
         self.assertEqual(result["exit_code"], 0)
         self.assertEqual(result["fresh_starts"], 1)
+        self.assertEqual(result["abandoned_tokens"], 123)
         self.assertEqual(commands[2], original)
 
     def test_second_silence_starts_fresh(self):

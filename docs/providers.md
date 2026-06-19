@@ -147,6 +147,10 @@ files already changed. Retryable API errors, including rate limits and server
 errors, use the same context-first recovery path. The overall
 `--agent-timeout` applies across all attempts.
 
+When a fresh session is required, the result records provider-reported tokens
+from completed requests in the abandoned context. The unanswered stalled
+request contributes zero tokens.
+
 Change the inactivity threshold when needed:
 
 ```bash

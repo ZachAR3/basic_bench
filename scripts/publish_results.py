@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import html
 import json
-import statistics
 from pathlib import Path
 
 
@@ -88,32 +87,15 @@ def summarize(meta: dict, records: list[dict]) -> dict:
     attempted = len(tasks)
     passed = sum(task["passed"] for task in tasks)
     total_seconds = sum(task["seconds"] or 0 for task in tasks)
-    compact_token_counts = [
-        task["tokens"]
-        for task in tasks
-        if task["task_id"] != "click-context-provenance"
-        and task["tokens"] is not None
-        and task["tokens"] > 0
-    ]
-    fallback_tokens = (
-        round(statistics.median(compact_token_counts))
-        if compact_token_counts
-        else 0
-    )
     wasted_tokens = 0
-    wasted_estimated = False
     for task in tasks:
         if task["passed"]:
             continue
         if task["tokens"] is not None and task["tokens"] > 0:
             wasted_tokens += task["tokens"]
-        elif fallback_tokens:
-            wasted_tokens += fallback_tokens
-            wasted_estimated = True
-    extra_waste = int(meta.get("wasted_tokens_extra_estimate", 0))
-    if extra_waste:
-        wasted_tokens += extra_waste
-        wasted_estimated = True
+    wasted_tokens += sum(
+        int(record["agent"].get("abandoned_tokens", 0)) for record in records
+    )
     complete = meta["scope"] == "full" and attempted == FULL_TASK_COUNT
     return {
         **meta,
@@ -130,7 +112,7 @@ def summarize(meta: dict, records: list[dict]) -> dict:
             else None
         ),
         "wasted_tokens": wasted_tokens or None,
-        "wasted_tokens_estimated": wasted_estimated,
+        "wasted_tokens_estimated": False,
         "tasks": tasks,
     }
 

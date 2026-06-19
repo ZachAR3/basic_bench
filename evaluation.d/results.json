@@ -302,15 +302,14 @@
       "price_usd": 1.06,
       "price_note": "Reported before tasks 10 and 11 were rerun",
       "times_recorded": true,
-      "wasted_tokens_extra_estimate": 492000,
       "complete": true,
       "passed": 8,
       "attempted": 11,
       "pass_rate": 72.7,
       "total_seconds": 1922.853,
       "total_tokens": 5178660,
-      "wasted_tokens": 1051450,
-      "wasted_tokens_estimated": true,
+      "wasted_tokens": 559450,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",
@@ -653,8 +652,8 @@
       "pass_rate": 54.5,
       "total_seconds": 6662.91,
       "total_tokens": 2638918,
-      "wasted_tokens": 976047,
-      "wasted_tokens_estimated": true,
+      "wasted_tokens": 778759,
+      "wasted_tokens_estimated": false,
       "tasks": [
         {
           "task_id": "lru-update",

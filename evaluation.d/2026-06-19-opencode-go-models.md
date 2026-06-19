@@ -23,18 +23,18 @@ All except Kimi K2.6 passed the repository-scale Click task.
 
 ## Cost and unsuccessful token volume
 
-Wasted tokens are provider token volume on tasks that failed grading. MiMo's
-two no-output timeouts use its median completed compact-task token count. Kimi
-K2.7 includes approximately 492,000 additional tokens from two abandoned,
-unscored sessions.
+Wasted tokens are provider-reported tokens from completed requests on tasks
+that failed grading. Silent stalled requests and no-output timeouts count as
+zero because no usage was returned and they do not appear to have been
+charged.
 
 | Model | Price | Estimated wasted tokens |
 |---|---:|---:|
-| Kimi K2.7 Code | $1.06 before final two tasks | ~1,051,450 |
+| Kimi K2.7 Code | $1.06 before final two tasks | 559,450 |
 | Kimi K2.6 | $2.19 | 419,400 |
 | MiniMax M3 | $0.30 | 289,762 |
 | DeepSeek V4 Pro | $1.22 | 477,436 |
-| MiMo V2.5 Pro | $1.17 | ~976,047 |
+| MiMo V2.5 Pro | $1.17 | 778,759 |
 | Qwen3.7 Max | $2.57 | 179,269 |
 | Qwen3.7 Plus | $0.39 | 179,142 |
 
