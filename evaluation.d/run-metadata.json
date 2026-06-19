@@ -46,8 +46,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 1.06,
-    "price_note": "Reported before tasks 10 and 11 were rerun",
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -57,7 +57,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 2.19,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -67,7 +68,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 0.3,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -77,7 +79,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 1.22,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -87,7 +90,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 1.17,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -97,7 +101,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 2.57,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {
@@ -107,7 +112,8 @@
     "route": "OpenCode Go",
     "date": "2026-06-19",
     "scope": "full",
-    "price_usd": 0.39,
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   }
 ]

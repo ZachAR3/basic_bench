@@ -23,20 +23,21 @@ All except Kimi K2.6 passed the repository-scale Click task.
 
 ## Cost and unsuccessful token volume
 
-Wasted tokens are provider-reported tokens from completed requests on tasks
-that failed grading. Silent stalled requests and no-output timeouts count as
-zero because no usage was returned and they do not appear to have been
-charged.
+Costs are calculated from retained per-request usage with OpenCode Go's
+uncached-input, output, cache-read, and cache-write rates. Qwen3.7 Plus applies
+its higher context tier per request when applicable. Wasted tokens are
+provider-reported tokens from completed requests on tasks that failed grading.
+Silent stalled requests and no-output timeouts count as zero.
 
 | Model | Price | Estimated wasted tokens |
 |---|---:|---:|
-| Kimi K2.7 Code | $1.06 before final two tasks | 559,450 |
-| Kimi K2.6 | $2.19 | 419,400 |
-| MiniMax M3 | $0.30 | 289,762 |
-| DeepSeek V4 Pro | $1.22 | 477,436 |
-| MiMo V2.5 Pro | $1.17 | 778,759 |
-| Qwen3.7 Max | $2.57 | 179,269 |
-| Qwen3.7 Plus | $0.39 | 179,142 |
+| Kimi K2.7 Code | $1.5153 | 559,450 |
+| Kimi K2.6 | $0.7293 | 419,400 |
+| MiniMax M3 | $0.2257 | 289,762 |
+| DeepSeek V4 Pro | $0.8330 | 477,436 |
+| MiMo V2.5 Pro | $0.5689 | 778,759 |
+| Qwen3.7 Max | $2.3945 | 179,269 |
+| Qwen3.7 Plus | $0.3532 | 179,142 |
 
 ## Task times
 

@@ -14,6 +14,59 @@ RESULTS = ROOT / "results"
 OUTPUT = ROOT / "evaluation.d" / "results.json"
 CHART = ROOT / "docs" / "results.svg"
 FULL_TASK_COUNT = 11
+OPENCODE_GO_PRICING = {
+    "Kimi K2.6": {
+        "input": 0.95,
+        "output": 4.0,
+        "cache_read": 0.16,
+        "cache_write": 0.0,
+    },
+    "Kimi K2.7 Code": {
+        "input": 0.95,
+        "output": 4.0,
+        "cache_read": 0.19,
+        "cache_write": 0.0,
+    },
+    "MiniMax M3": {
+        "input": 0.1,
+        "output": 0.4,
+        "cache_read": 0.02,
+        "cache_write": 0.0,
+    },
+    "DeepSeek V4 Pro": {
+        "input": 1.74,
+        "output": 3.48,
+        "cache_read": 0.0145,
+        "cache_write": 0.0,
+    },
+    "MiMo V2.5 Pro": {
+        "input": 1.74,
+        "output": 3.48,
+        "cache_read": 0.0145,
+        "cache_write": 0.0,
+    },
+    "Qwen3.7 Max": {
+        "input": 2.5,
+        "output": 7.5,
+        "cache_read": 0.5,
+        "cache_write": 3.125,
+    },
+    "Qwen3.7 Plus": {
+        "input": 0.4,
+        "output": 1.6,
+        "cache_read": 0.04,
+        "cache_write": 0.5,
+        "tier_context": 256000,
+        "tier": {
+            "input": 1.2,
+            "output": 4.8,
+            "cache_read": 0.12,
+            "cache_write": 1.5,
+        },
+    },
+}
+# USD per million tokens. Snapshot from OpenCode Go model metadata used by the
+# benchmark on 2026-06-19.
 
 
 def load_records(path: Path) -> list[dict]:
@@ -69,6 +122,62 @@ def provider_tokens(record: dict) -> int | None:
     return None
 
 
+def opencode_usage(record: dict) -> list[dict[str, int]]:
+    usage = []
+    for line in record["agent"].get("stdout", "").splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        part = event.get("part") or {}
+        if part.get("type") != "step-finish":
+            continue
+        tokens = part.get("tokens") or {}
+        cache = tokens.get("cache") or {}
+        usage.append(
+            {
+                "input": int(tokens.get("input") or 0),
+                "output": int(tokens.get("output") or 0)
+                + int(tokens.get("reasoning") or 0),
+                "cache_read": int(cache.get("read") or 0),
+                "cache_write": int(cache.get("write") or 0),
+            }
+        )
+    return usage
+
+
+def opencode_price(meta: dict, records: list[dict]) -> float | None:
+    rates = OPENCODE_GO_PRICING.get(meta["model"])
+    if rates is None:
+        return None
+    total = 0.0
+    found = False
+    for record in records:
+        for usage in opencode_usage(record):
+            found = True
+            request_rates = rates
+            context_tokens = (
+                usage["input"]
+                + usage["cache_read"]
+                + usage["cache_write"]
+            )
+            if (
+                rates.get("tier")
+                and context_tokens > rates["tier_context"]
+            ):
+                request_rates = rates["tier"]
+            total += sum(
+                usage[key] * request_rates[key]
+                for key in (
+                    "input",
+                    "output",
+                    "cache_read",
+                    "cache_write",
+                )
+            ) / 1_000_000
+    return round(total, 4) if found else None
+
+
 def summarize(meta: dict, records: list[dict]) -> dict:
     tasks = []
     for record in records:
@@ -97,8 +206,13 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         int(record["agent"].get("abandoned_tokens", 0)) for record in records
     )
     complete = meta["scope"] == "full" and attempted == FULL_TASK_COUNT
+    price = meta.get("price_usd")
+    if meta.get("price_source") == "opencode_usage":
+        price = opencode_price(meta, records)
     return {
         **meta,
+        "price_usd": price,
+        "price_calculated": meta.get("price_source") == "opencode_usage",
         "complete": complete,
         "passed": passed,
         "attempted": attempted,
