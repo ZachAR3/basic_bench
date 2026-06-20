@@ -23,12 +23,15 @@
       "total_tokens": null,
       "wasted_tokens": null,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -37,6 +40,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -45,6 +49,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -53,6 +58,7 @@
           "passed": false,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -61,6 +67,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -69,6 +76,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -77,6 +85,7 @@
           "passed": false,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -85,6 +94,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -93,6 +103,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -101,6 +112,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -109,6 +121,7 @@
           "passed": true,
           "seconds": null,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         }
@@ -136,12 +149,15 @@
       "total_tokens": 7811348,
       "wasted_tokens": 3275137,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 53.301,
           "tokens": 103726,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -150,6 +166,7 @@
           "passed": true,
           "seconds": 43.298,
           "tokens": 83780,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -158,6 +175,7 @@
           "passed": true,
           "seconds": 35.032,
           "tokens": 88837,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -166,6 +184,7 @@
           "passed": false,
           "seconds": 269.472,
           "tokens": 311871,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -174,6 +193,7 @@
           "passed": true,
           "seconds": 70.969,
           "tokens": 117329,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -182,6 +202,7 @@
           "passed": true,
           "seconds": 43.638,
           "tokens": 79400,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -190,6 +211,7 @@
           "passed": false,
           "seconds": 172.398,
           "tokens": 208433,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -198,6 +220,7 @@
           "passed": true,
           "seconds": 57.362,
           "tokens": 103486,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -206,6 +229,7 @@
           "passed": true,
           "seconds": 184.242,
           "tokens": 175034,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -214,6 +238,7 @@
           "passed": true,
           "seconds": 900.04,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -222,6 +247,7 @@
           "passed": true,
           "seconds": 668.739,
           "tokens": 3784619,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -230,6 +256,7 @@
           "passed": false,
           "seconds": 813.239,
           "tokens": 1127507,
+          "price_usd": null,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -238,6 +265,7 @@
           "passed": false,
           "seconds": 621.28,
           "tokens": 417958,
+          "price_usd": null,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -246,6 +274,7 @@
           "passed": false,
           "seconds": 983.989,
           "tokens": 991499,
+          "price_usd": null,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -254,6 +283,7 @@
           "passed": false,
           "seconds": 545.412,
           "tokens": 100322,
+          "price_usd": null,
           "points_earned": 2.0,
           "points_total": 10.0
         },
@@ -262,6 +292,7 @@
           "passed": false,
           "seconds": 574.103,
           "tokens": 117547,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -289,12 +320,15 @@
       "total_tokens": 8268418,
       "wasted_tokens": 2261616,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 49.681,
           "tokens": 89568,
+          "price_usd": 0.0561,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -303,6 +337,7 @@
           "passed": true,
           "seconds": 28.921,
           "tokens": 59656,
+          "price_usd": 0.0404,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -311,6 +346,7 @@
           "passed": true,
           "seconds": 26.038,
           "tokens": 70095,
+          "price_usd": 0.0457,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -319,6 +355,7 @@
           "passed": false,
           "seconds": 99.768,
           "tokens": 132914,
+          "price_usd": 0.1046,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -327,6 +364,7 @@
           "passed": true,
           "seconds": 51.339,
           "tokens": 68445,
+          "price_usd": 0.0446,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -335,6 +373,7 @@
           "passed": true,
           "seconds": 23.097,
           "tokens": 68625,
+          "price_usd": 0.0449,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -343,6 +382,7 @@
           "passed": false,
           "seconds": 75.245,
           "tokens": 85918,
+          "price_usd": 0.0582,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -351,6 +391,7 @@
           "passed": true,
           "seconds": 88.559,
           "tokens": 109766,
+          "price_usd": 0.0798,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -359,6 +400,7 @@
           "passed": true,
           "seconds": 74.19,
           "tokens": 174130,
+          "price_usd": 0.0879,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -367,6 +409,7 @@
           "passed": true,
           "seconds": 286.174,
           "tokens": 363190,
+          "price_usd": 0.2584,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -375,6 +418,7 @@
           "passed": false,
           "seconds": 380.407,
           "tokens": 43039,
+          "price_usd": 0.0359,
           "points_earned": 2.0,
           "points_total": 10.0
         },
@@ -383,6 +427,7 @@
           "passed": false,
           "seconds": 604.501,
           "tokens": 667830,
+          "price_usd": 0.4071,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -391,6 +436,7 @@
           "passed": false,
           "seconds": 369.189,
           "tokens": 1195758,
+          "price_usd": 0.4735,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -399,6 +445,7 @@
           "passed": true,
           "seconds": 1006.611,
           "tokens": 661691,
+          "price_usd": 0.442,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -407,6 +454,7 @@
           "passed": false,
           "seconds": 453.156,
           "tokens": 103663,
+          "price_usd": 0.0497,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -415,6 +463,7 @@
           "passed": true,
           "seconds": 449.554,
           "tokens": 4374130,
+          "price_usd": 1.4604,
           "points_earned": 10.0,
           "points_total": 10.0
         }
@@ -441,12 +490,15 @@
       "total_tokens": 1921963,
       "wasted_tokens": 877415,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 42.301,
           "tokens": 75104,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -455,6 +507,7 @@
           "passed": true,
           "seconds": 43.936,
           "tokens": 75370,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -463,6 +516,7 @@
           "passed": true,
           "seconds": 42.829,
           "tokens": 52977,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -471,6 +525,7 @@
           "passed": false,
           "seconds": 57.022,
           "tokens": 56514,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -479,6 +534,7 @@
           "passed": true,
           "seconds": 65.348,
           "tokens": 64972,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -487,6 +543,7 @@
           "passed": true,
           "seconds": 63.173,
           "tokens": 60128,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -495,6 +552,7 @@
           "passed": false,
           "seconds": 68.834,
           "tokens": 66342,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -503,6 +561,7 @@
           "passed": true,
           "seconds": 63.039,
           "tokens": 65840,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -511,6 +570,7 @@
           "passed": true,
           "seconds": 99.378,
           "tokens": 105388,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -519,6 +579,7 @@
           "passed": true,
           "seconds": 224.747,
           "tokens": 175689,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -527,6 +588,7 @@
           "passed": true,
           "seconds": 174.532,
           "tokens": 260398,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -535,6 +597,7 @@
           "passed": false,
           "seconds": 160.905,
           "tokens": 186188,
+          "price_usd": null,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -543,6 +606,7 @@
           "passed": false,
           "seconds": 233.706,
           "tokens": 257698,
+          "price_usd": null,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -551,6 +615,7 @@
           "passed": false,
           "seconds": 106.022,
           "tokens": 48207,
+          "price_usd": null,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -559,6 +624,7 @@
           "passed": true,
           "seconds": 149.297,
           "tokens": 108682,
+          "price_usd": null,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -567,6 +633,7 @@
           "passed": false,
           "seconds": 299.37,
           "tokens": 262466,
+          "price_usd": null,
           "points_earned": 8.0,
           "points_total": 10.0
         }
@@ -593,12 +660,15 @@
       "total_tokens": 183570,
       "wasted_tokens": 183570,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "quoted-tokenizer",
           "passed": false,
           "seconds": 86.215,
           "tokens": 81688,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -607,6 +677,7 @@
           "passed": false,
           "seconds": 116.043,
           "tokens": 101882,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -634,12 +705,15 @@
       "total_tokens": 11900444,
       "wasted_tokens": 3376377,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 49.974,
           "tokens": 58582,
+          "price_usd": 0.0223,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -648,6 +722,7 @@
           "passed": true,
           "seconds": 30.433,
           "tokens": 59550,
+          "price_usd": 0.0181,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -656,6 +731,7 @@
           "passed": true,
           "seconds": 30.655,
           "tokens": 52024,
+          "price_usd": 0.0172,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -664,6 +740,7 @@
           "passed": false,
           "seconds": 286.618,
           "tokens": 333001,
+          "price_usd": 0.1245,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -672,6 +749,7 @@
           "passed": false,
           "seconds": 82.304,
           "tokens": 73593,
+          "price_usd": 0.0331,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -680,6 +758,7 @@
           "passed": true,
           "seconds": 43.507,
           "tokens": 86175,
+          "price_usd": 0.0255,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -688,6 +767,7 @@
           "passed": false,
           "seconds": 125.716,
           "tokens": 152856,
+          "price_usd": 0.0621,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -696,6 +776,7 @@
           "passed": true,
           "seconds": 53.11,
           "tokens": 48054,
+          "price_usd": 0.0201,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -704,6 +785,7 @@
           "passed": true,
           "seconds": 130.765,
           "tokens": 164104,
+          "price_usd": 0.0687,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -712,6 +794,7 @@
           "passed": true,
           "seconds": 396.155,
           "tokens": 753747,
+          "price_usd": 0.2499,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -720,6 +803,7 @@
           "passed": true,
           "seconds": 693.616,
           "tokens": 3396974,
+          "price_usd": 0.8738,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -728,6 +812,7 @@
           "passed": false,
           "seconds": 491.398,
           "tokens": 1351503,
+          "price_usd": 0.4229,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -736,6 +821,7 @@
           "passed": false,
           "seconds": 638.305,
           "tokens": 1465424,
+          "price_usd": 0.4949,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -744,6 +830,7 @@
           "passed": true,
           "seconds": 219.406,
           "tokens": 325258,
+          "price_usd": 0.1227,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -752,6 +839,7 @@
           "passed": true,
           "seconds": 1475.816,
           "tokens": 1663759,
+          "price_usd": 0.518,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -760,6 +848,7 @@
           "passed": true,
           "seconds": 727.075,
           "tokens": 1915840,
+          "price_usd": 0.569,
           "points_earned": 10.0,
           "points_total": 10.0
         }
@@ -772,7 +861,7 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": 1.9765,
+      "price_usd": 1.9764,
       "price_source": "opencode_usage",
       "times_recorded": true,
       "price_calculated": true,
@@ -787,12 +876,15 @@
       "total_tokens": 4595487,
       "wasted_tokens": 2040271,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 104.452,
           "tokens": 76385,
+          "price_usd": 0.0374,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -801,6 +893,7 @@
           "passed": true,
           "seconds": 50.893,
           "tokens": 80268,
+          "price_usd": 0.0296,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -809,6 +902,7 @@
           "passed": false,
           "seconds": 320.939,
           "tokens": 13490,
+          "price_usd": 0.0055,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -817,6 +911,7 @@
           "passed": false,
           "seconds": 474.589,
           "tokens": 152564,
+          "price_usd": 0.0933,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -825,6 +920,7 @@
           "passed": true,
           "seconds": 247.82,
           "tokens": 168991,
+          "price_usd": 0.0687,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -833,6 +929,7 @@
           "passed": true,
           "seconds": 76.405,
           "tokens": 55168,
+          "price_usd": 0.0208,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -841,6 +938,7 @@
           "passed": false,
           "seconds": 193.461,
           "tokens": 154319,
+          "price_usd": 0.0617,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -849,6 +947,7 @@
           "passed": true,
           "seconds": 65.807,
           "tokens": 76066,
+          "price_usd": 0.0377,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -857,6 +956,7 @@
           "passed": true,
           "seconds": 718.519,
           "tokens": 262464,
+          "price_usd": 0.1047,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -865,6 +965,7 @@
           "passed": true,
           "seconds": 399.687,
           "tokens": 597186,
+          "price_usd": 0.2101,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -873,6 +974,7 @@
           "passed": false,
           "seconds": 427.65,
           "tokens": 99027,
+          "price_usd": 0.0597,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -881,6 +983,7 @@
           "passed": false,
           "seconds": 2234.993,
           "tokens": 652173,
+          "price_usd": 0.3701,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -889,6 +992,7 @@
           "passed": false,
           "seconds": 348.088,
           "tokens": 34559,
+          "price_usd": 0.074,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -897,6 +1001,7 @@
           "passed": false,
           "seconds": 1083.199,
           "tokens": 677064,
+          "price_usd": 0.2751,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -905,6 +1010,7 @@
           "passed": true,
           "seconds": 1233.488,
           "tokens": 1238688,
+          "price_usd": 0.4125,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -913,6 +1019,7 @@
           "passed": false,
           "seconds": 2375.687,
           "tokens": 257075,
+          "price_usd": 0.1155,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -925,7 +1032,7 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": 0.361,
+      "price_usd": 0.3609,
       "price_source": "opencode_usage",
       "times_recorded": true,
       "price_calculated": true,
@@ -940,12 +1047,15 @@
       "total_tokens": 12006124,
       "wasted_tokens": 3641410,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 60.696,
           "tokens": 137458,
+          "price_usd": 0.0048,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -954,6 +1064,7 @@
           "passed": true,
           "seconds": 18.454,
           "tokens": 56501,
+          "price_usd": 0.0019,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -962,6 +1073,7 @@
           "passed": true,
           "seconds": 35.819,
           "tokens": 59702,
+          "price_usd": 0.0023,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -970,6 +1082,7 @@
           "passed": false,
           "seconds": 111.256,
           "tokens": 178407,
+          "price_usd": 0.0071,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -978,6 +1091,7 @@
           "passed": true,
           "seconds": 66.729,
           "tokens": 73411,
+          "price_usd": 0.0039,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -986,6 +1100,7 @@
           "passed": true,
           "seconds": 42.358,
           "tokens": 70361,
+          "price_usd": 0.0027,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -994,6 +1109,7 @@
           "passed": false,
           "seconds": 79.677,
           "tokens": 111355,
+          "price_usd": 0.0048,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1002,6 +1118,7 @@
           "passed": true,
           "seconds": 37.461,
           "tokens": 62896,
+          "price_usd": 0.0027,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1010,6 +1127,7 @@
           "passed": true,
           "seconds": 63.125,
           "tokens": 158815,
+          "price_usd": 0.0051,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1018,6 +1136,7 @@
           "passed": true,
           "seconds": 288.204,
           "tokens": 554278,
+          "price_usd": 0.0235,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1026,6 +1145,7 @@
           "passed": true,
           "seconds": 1031.972,
           "tokens": 7191292,
+          "price_usd": 0.1668,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1034,6 +1154,7 @@
           "passed": false,
           "seconds": 1588.011,
           "tokens": 1330135,
+          "price_usd": 0.0421,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1042,6 +1163,7 @@
           "passed": false,
           "seconds": 1056.74,
           "tokens": 128550,
+          "price_usd": 0.0035,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1050,6 +1172,7 @@
           "passed": false,
           "seconds": 353.193,
           "tokens": 541820,
+          "price_usd": 0.0256,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1058,6 +1181,7 @@
           "passed": false,
           "seconds": 726.03,
           "tokens": 1221892,
+          "price_usd": 0.0486,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1066,6 +1190,7 @@
           "passed": false,
           "seconds": 314.191,
           "tokens": 129251,
+          "price_usd": 0.0155,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -1078,7 +1203,7 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": 1.3452,
+      "price_usd": 1.345,
       "price_source": "opencode_usage",
       "times_recorded": true,
       "price_calculated": true,
@@ -1093,12 +1218,15 @@
       "total_tokens": 6033288,
       "wasted_tokens": 1616167,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 99.873,
           "tokens": 114024,
+          "price_usd": 0.0412,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1107,6 +1235,7 @@
           "passed": true,
           "seconds": 56.874,
           "tokens": 66259,
+          "price_usd": 0.0214,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1115,6 +1244,7 @@
           "passed": false,
           "seconds": 87.889,
           "tokens": 142310,
+          "price_usd": 0.0337,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1123,6 +1253,7 @@
           "passed": false,
           "seconds": 243.971,
           "tokens": 272889,
+          "price_usd": 0.0954,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1131,6 +1262,7 @@
           "passed": false,
           "seconds": 99.724,
           "tokens": 62237,
+          "price_usd": 0.0364,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1139,6 +1271,7 @@
           "passed": true,
           "seconds": 47.895,
           "tokens": 74900,
+          "price_usd": 0.0259,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1147,6 +1280,7 @@
           "passed": true,
           "seconds": 193.893,
           "tokens": 180879,
+          "price_usd": 0.0773,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1155,6 +1289,7 @@
           "passed": true,
           "seconds": 37.64,
           "tokens": 64779,
+          "price_usd": 0.0239,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1163,6 +1298,7 @@
           "passed": true,
           "seconds": 94.776,
           "tokens": 58129,
+          "price_usd": 0.0345,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1171,6 +1307,7 @@
           "passed": true,
           "seconds": 342.402,
           "tokens": 589127,
+          "price_usd": 0.1365,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1179,6 +1316,7 @@
           "passed": true,
           "seconds": 819.166,
           "tokens": 2735246,
+          "price_usd": 0.3067,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1187,6 +1325,7 @@
           "passed": false,
           "seconds": 166.367,
           "tokens": 328484,
+          "price_usd": 0.0876,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1195,6 +1334,7 @@
           "passed": false,
           "seconds": 206.919,
           "tokens": 318046,
+          "price_usd": 0.1129,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1203,6 +1343,7 @@
           "passed": false,
           "seconds": 101.952,
           "tokens": 189863,
+          "price_usd": 0.0577,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1211,6 +1352,7 @@
           "passed": false,
           "seconds": 161.848,
           "tokens": 302338,
+          "price_usd": 0.1082,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1219,6 +1361,7 @@
           "passed": true,
           "seconds": 280.799,
           "tokens": 533778,
+          "price_usd": 0.1457,
           "points_earned": 10.0,
           "points_total": 10.0
         }
@@ -1231,7 +1374,7 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": 1.2448,
+      "price_usd": 1.2447,
       "price_source": "opencode_usage",
       "times_recorded": true,
       "price_calculated": true,
@@ -1246,12 +1389,15 @@
       "total_tokens": 6085165,
       "wasted_tokens": 1915041,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": false,
           "seconds": 1800.05,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1260,6 +1406,7 @@
           "passed": false,
           "seconds": 1800.043,
           "tokens": null,
+          "price_usd": null,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1268,6 +1415,7 @@
           "passed": true,
           "seconds": 1084.739,
           "tokens": 76948,
+          "price_usd": 0.0229,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1276,6 +1424,7 @@
           "passed": false,
           "seconds": 356.517,
           "tokens": 270311,
+          "price_usd": 0.1046,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1284,6 +1433,7 @@
           "passed": true,
           "seconds": 71.733,
           "tokens": 72184,
+          "price_usd": 0.0274,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1292,6 +1442,7 @@
           "passed": true,
           "seconds": 33.873,
           "tokens": 68061,
+          "price_usd": 0.0197,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1300,6 +1451,7 @@
           "passed": false,
           "seconds": 95.206,
           "tokens": 116145,
+          "price_usd": 0.0288,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1308,6 +1460,7 @@
           "passed": true,
           "seconds": 48.517,
           "tokens": 81143,
+          "price_usd": 0.0253,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1316,6 +1469,7 @@
           "passed": true,
           "seconds": 148.846,
           "tokens": 168696,
+          "price_usd": 0.044,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1324,6 +1478,7 @@
           "passed": false,
           "seconds": 308.694,
           "tokens": 392303,
+          "price_usd": 0.096,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1332,6 +1487,7 @@
           "passed": true,
           "seconds": 914.692,
           "tokens": 1393127,
+          "price_usd": 0.2001,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1340,6 +1496,7 @@
           "passed": false,
           "seconds": 360.915,
           "tokens": 720977,
+          "price_usd": 0.1485,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1348,6 +1505,7 @@
           "passed": false,
           "seconds": 87.332,
           "tokens": 152958,
+          "price_usd": 0.0501,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1356,6 +1514,7 @@
           "passed": false,
           "seconds": 156.425,
           "tokens": 180789,
+          "price_usd": 0.0673,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1364,6 +1523,7 @@
           "passed": true,
           "seconds": 1045.615,
           "tokens": 2309965,
+          "price_usd": 0.3703,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1372,6 +1532,7 @@
           "passed": false,
           "seconds": 560.193,
           "tokens": 81558,
+          "price_usd": 0.0397,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -1384,7 +1545,7 @@
       "route": "OpenCode Go",
       "date": "2026-06-19",
       "scope": "full",
-      "price_usd": 3.2646,
+      "price_usd": 3.2648,
       "price_source": "opencode_usage",
       "times_recorded": true,
       "price_calculated": true,
@@ -1399,12 +1560,15 @@
       "total_tokens": 3558034,
       "wasted_tokens": 851278,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 51.312,
           "tokens": 89579,
+          "price_usd": 0.0835,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1413,6 +1577,7 @@
           "passed": true,
           "seconds": 46.339,
           "tokens": 76357,
+          "price_usd": 0.0705,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1421,6 +1586,7 @@
           "passed": true,
           "seconds": 47.025,
           "tokens": 61050,
+          "price_usd": 0.0678,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1429,6 +1595,7 @@
           "passed": false,
           "seconds": 82.098,
           "tokens": 78213,
+          "price_usd": 0.0921,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1437,6 +1604,7 @@
           "passed": true,
           "seconds": 49.934,
           "tokens": 44675,
+          "price_usd": 0.0643,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1445,6 +1613,7 @@
           "passed": true,
           "seconds": 39.189,
           "tokens": 67099,
+          "price_usd": 0.0654,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1453,6 +1622,7 @@
           "passed": false,
           "seconds": 62.923,
           "tokens": 101056,
+          "price_usd": 0.0934,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1461,6 +1631,7 @@
           "passed": true,
           "seconds": 44.417,
           "tokens": 42653,
+          "price_usd": 0.0584,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1469,6 +1640,7 @@
           "passed": true,
           "seconds": 98.624,
           "tokens": 82321,
+          "price_usd": 0.1086,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1477,6 +1649,7 @@
           "passed": true,
           "seconds": 303.532,
           "tokens": 254971,
+          "price_usd": 0.3056,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1485,6 +1658,7 @@
           "passed": true,
           "seconds": 970.739,
           "tokens": 1988051,
+          "price_usd": 1.3851,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1493,6 +1667,7 @@
           "passed": false,
           "seconds": 228.915,
           "tokens": 286278,
+          "price_usd": 0.2658,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1501,6 +1676,7 @@
           "passed": false,
           "seconds": 367.606,
           "tokens": 182025,
+          "price_usd": 0.3485,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1509,6 +1685,7 @@
           "passed": false,
           "seconds": 172.07,
           "tokens": 155711,
+          "price_usd": 0.184,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1517,6 +1694,7 @@
           "passed": false,
           "seconds": 238.551,
           "tokens": 23712,
+          "price_usd": 0.0349,
           "points_earned": 2.0,
           "points_total": 10.0
         },
@@ -1525,6 +1703,7 @@
           "passed": false,
           "seconds": 266.647,
           "tokens": 24283,
+          "price_usd": 0.0369,
           "points_earned": 0.0,
           "points_total": 10.0
         }
@@ -1552,12 +1731,15 @@
       "total_tokens": 5985426,
       "wasted_tokens": 1430643,
       "wasted_tokens_estimated": false,
+      "syntax_score": null,
+      "syntax_score_note": null,
       "tasks": [
         {
           "task_id": "lru-update",
           "passed": true,
           "seconds": 62.775,
           "tokens": 90749,
+          "price_usd": 0.0114,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1566,6 +1748,7 @@
           "passed": true,
           "seconds": 38.435,
           "tokens": 60846,
+          "price_usd": 0.0088,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1574,6 +1757,7 @@
           "passed": true,
           "seconds": 35.82,
           "tokens": 59040,
+          "price_usd": 0.0083,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1582,6 +1766,7 @@
           "passed": false,
           "seconds": 129.414,
           "tokens": 107431,
+          "price_usd": 0.0191,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1590,6 +1775,7 @@
           "passed": true,
           "seconds": 47.89,
           "tokens": 44114,
+          "price_usd": 0.0095,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1598,6 +1784,7 @@
           "passed": true,
           "seconds": 47.65,
           "tokens": 74759,
+          "price_usd": 0.0089,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1606,6 +1793,7 @@
           "passed": false,
           "seconds": 62.368,
           "tokens": 71711,
+          "price_usd": 0.0108,
           "points_earned": 0.0,
           "points_total": 10.0
         },
@@ -1614,6 +1802,7 @@
           "passed": true,
           "seconds": 50.617,
           "tokens": 51617,
+          "price_usd": 0.0091,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1622,6 +1811,7 @@
           "passed": true,
           "seconds": 58.494,
           "tokens": 67150,
+          "price_usd": 0.013,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1630,6 +1820,7 @@
           "passed": true,
           "seconds": 331.163,
           "tokens": 261735,
+          "price_usd": 0.0515,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1638,6 +1829,7 @@
           "passed": true,
           "seconds": 795.704,
           "tokens": 3142100,
+          "price_usd": 0.2028,
           "points_earned": 10.0,
           "points_total": 10.0
         },
@@ -1646,6 +1838,7 @@
           "passed": false,
           "seconds": 447.583,
           "tokens": 458431,
+          "price_usd": 0.0701,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1654,6 +1847,7 @@
           "passed": false,
           "seconds": 661.552,
           "tokens": 144750,
+          "price_usd": 0.0488,
           "points_earned": 6.0,
           "points_total": 10.0
         },
@@ -1662,6 +1856,7 @@
           "passed": false,
           "seconds": 240.753,
           "tokens": 209879,
+          "price_usd": 0.0369,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1670,6 +1865,7 @@
           "passed": false,
           "seconds": 443.011,
           "tokens": 438441,
+          "price_usd": 0.0666,
           "points_earned": 8.0,
           "points_total": 10.0
         },
@@ -1678,6 +1874,520 @@
           "passed": true,
           "seconds": 579.535,
           "tokens": 702673,
+          "price_usd": 0.0886,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        }
+      ]
+    },
+    {
+      "run_id": "mimo-v2.5-opencode-go",
+      "label": "MiMo V2.5",
+      "model": "MiMo V2.5",
+      "route": "OpenCode Go",
+      "date": "2026-06-20",
+      "scope": "full",
+      "price_usd": 0.1459,
+      "price_source": "opencode_usage",
+      "times_recorded": true,
+      "syntax_score": 7.0,
+      "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability.",
+      "price_calculated": true,
+      "complete": true,
+      "passed": 9,
+      "attempted": 16,
+      "pass_rate": 56.2,
+      "points_earned": 116.0,
+      "points_total": 160.0,
+      "points_rate": 72.5,
+      "total_seconds": 3374.195,
+      "total_tokens": 6989363,
+      "wasted_tokens": 1689378,
+      "wasted_tokens_estimated": false,
+      "tasks": [
+        {
+          "task_id": "lru-update",
+          "passed": true,
+          "seconds": 33.117,
+          "tokens": 88257,
+          "price_usd": 0.0022,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "config-precedence",
+          "passed": true,
+          "seconds": 57.399,
+          "tokens": 68837,
+          "price_usd": 0.0019,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rate-window",
+          "passed": true,
+          "seconds": 35.893,
+          "tokens": 65823,
+          "price_usd": 0.0021,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "quoted-tokenizer",
+          "passed": false,
+          "seconds": 105.771,
+          "tokens": 120217,
+          "price_usd": 0.0048,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "schema-migration",
+          "passed": true,
+          "seconds": 73.729,
+          "tokens": 62616,
+          "price_usd": 0.0026,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "csv-unicode",
+          "passed": true,
+          "seconds": 40.325,
+          "tokens": 72305,
+          "price_usd": 0.0017,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "stable-toposort",
+          "passed": false,
+          "seconds": 51.085,
+          "tokens": 122864,
+          "price_usd": 0.0028,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "async-retry",
+          "passed": true,
+          "seconds": 51.639,
+          "tokens": 59214,
+          "price_usd": 0.0022,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "dst-recurrence",
+          "passed": false,
+          "seconds": 41.747,
+          "tokens": 92197,
+          "price_usd": 0.0027,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "webdav-endpoint",
+          "passed": true,
+          "seconds": 439.469,
+          "tokens": 269542,
+          "price_usd": 0.0171,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "react-offline-sync",
+          "passed": false,
+          "seconds": 233.992,
+          "tokens": 408332,
+          "price_usd": 0.009,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "java-idempotency",
+          "passed": false,
+          "seconds": 691.89,
+          "tokens": 487240,
+          "price_usd": 0.0171,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "godot-save-pipeline",
+          "passed": false,
+          "seconds": 114.809,
+          "tokens": 205970,
+          "price_usd": 0.0064,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "cpp-memory-bus",
+          "passed": false,
+          "seconds": 213.596,
+          "tokens": 252558,
+          "price_usd": 0.0103,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rust-wal-queue",
+          "passed": true,
+          "seconds": 582.439,
+          "tokens": 429534,
+          "price_usd": 0.0189,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "click-context-provenance",
+          "passed": true,
+          "seconds": 607.295,
+          "tokens": 4183857,
+          "price_usd": 0.0441,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        }
+      ]
+    },
+    {
+      "run_id": "deepseek-v4-flash-opencode-go",
+      "label": "DeepSeek V4 Flash",
+      "model": "DeepSeek V4 Flash",
+      "route": "OpenCode Go",
+      "date": "2026-06-20",
+      "scope": "full",
+      "price_usd": 0.1181,
+      "price_source": "opencode_usage",
+      "times_recorded": true,
+      "syntax_score": 7.5,
+      "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability.",
+      "price_calculated": true,
+      "complete": true,
+      "passed": 8,
+      "attempted": 16,
+      "pass_rate": 50.0,
+      "points_earned": 116.0,
+      "points_total": 160.0,
+      "points_rate": 72.5,
+      "total_seconds": 2332.283,
+      "total_tokens": 6603598,
+      "wasted_tokens": 5928450,
+      "wasted_tokens_estimated": false,
+      "tasks": [
+        {
+          "task_id": "lru-update",
+          "passed": true,
+          "seconds": 22.672,
+          "tokens": 62289,
+          "price_usd": 0.0018,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "config-precedence",
+          "passed": true,
+          "seconds": 26.866,
+          "tokens": 112632,
+          "price_usd": 0.0028,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rate-window",
+          "passed": true,
+          "seconds": 30.211,
+          "tokens": 71429,
+          "price_usd": 0.002,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "quoted-tokenizer",
+          "passed": false,
+          "seconds": 244.06,
+          "tokens": 366875,
+          "price_usd": 0.0102,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "schema-migration",
+          "passed": true,
+          "seconds": 82.336,
+          "tokens": 114819,
+          "price_usd": 0.0032,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "csv-unicode",
+          "passed": true,
+          "seconds": 37.809,
+          "tokens": 66016,
+          "price_usd": 0.0018,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "stable-toposort",
+          "passed": false,
+          "seconds": 76.374,
+          "tokens": 160434,
+          "price_usd": 0.0038,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "async-retry",
+          "passed": true,
+          "seconds": 31.1,
+          "tokens": 56544,
+          "price_usd": 0.0022,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "dst-recurrence",
+          "passed": true,
+          "seconds": 48.582,
+          "tokens": 74747,
+          "price_usd": 0.0029,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "webdav-endpoint",
+          "passed": true,
+          "seconds": 116.884,
+          "tokens": 116672,
+          "price_usd": 0.0044,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "react-offline-sync",
+          "passed": false,
+          "seconds": 199.275,
+          "tokens": 205553,
+          "price_usd": 0.0084,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "java-idempotency",
+          "passed": false,
+          "seconds": 194.101,
+          "tokens": 188883,
+          "price_usd": 0.0076,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "godot-save-pipeline",
+          "passed": false,
+          "seconds": 74.195,
+          "tokens": 116145,
+          "price_usd": 0.0045,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "cpp-memory-bus",
+          "passed": false,
+          "seconds": 165.949,
+          "tokens": 373234,
+          "price_usd": 0.009,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rust-wal-queue",
+          "passed": false,
+          "seconds": 301.158,
+          "tokens": 426157,
+          "price_usd": 0.013,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "click-context-provenance",
+          "passed": false,
+          "seconds": 680.711,
+          "tokens": 4091169,
+          "price_usd": 0.0405,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        }
+      ]
+    },
+    {
+      "run_id": "qwen3.6-plus-opencode-go",
+      "label": "Qwen3.6 Plus",
+      "model": "Qwen3.6 Plus",
+      "route": "OpenCode Go",
+      "date": "2026-06-20",
+      "scope": "full",
+      "price_usd": 0.9689,
+      "price_source": "opencode_usage",
+      "times_recorded": true,
+      "syntax_score": 8.0,
+      "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability.",
+      "price_calculated": true,
+      "complete": true,
+      "passed": 8,
+      "attempted": 16,
+      "pass_rate": 50.0,
+      "points_earned": 116.0,
+      "points_total": 160.0,
+      "points_rate": 72.5,
+      "total_seconds": 4668.412,
+      "total_tokens": 5497485,
+      "wasted_tokens": 2295789,
+      "wasted_tokens_estimated": false,
+      "tasks": [
+        {
+          "task_id": "lru-update",
+          "passed": true,
+          "seconds": 65.417,
+          "tokens": 103118,
+          "price_usd": 0.0191,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "config-precedence",
+          "passed": true,
+          "seconds": 58.296,
+          "tokens": 54179,
+          "price_usd": 0.0121,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rate-window",
+          "passed": true,
+          "seconds": 47.28,
+          "tokens": 78670,
+          "price_usd": 0.0147,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "quoted-tokenizer",
+          "passed": false,
+          "seconds": 117.273,
+          "tokens": 209848,
+          "price_usd": 0.0424,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "schema-migration",
+          "passed": true,
+          "seconds": 83.924,
+          "tokens": 55278,
+          "price_usd": 0.0144,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "csv-unicode",
+          "passed": true,
+          "seconds": 30.288,
+          "tokens": 50200,
+          "price_usd": 0.011,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "stable-toposort",
+          "passed": false,
+          "seconds": 69.852,
+          "tokens": 78461,
+          "price_usd": 0.0194,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "async-retry",
+          "passed": false,
+          "seconds": 116.712,
+          "tokens": 60903,
+          "price_usd": 0.0167,
+          "points_earned": 0.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "dst-recurrence",
+          "passed": true,
+          "seconds": 132.14,
+          "tokens": 95155,
+          "price_usd": 0.0225,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "webdav-endpoint",
+          "passed": true,
+          "seconds": 228.7,
+          "tokens": 137564,
+          "price_usd": 0.0407,
+          "points_earned": 10.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "react-offline-sync",
+          "passed": false,
+          "seconds": 469.213,
+          "tokens": 395464,
+          "price_usd": 0.1046,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "java-idempotency",
+          "passed": false,
+          "seconds": 720.662,
+          "tokens": 389651,
+          "price_usd": 0.0908,
+          "points_earned": 6.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "godot-save-pipeline",
+          "passed": false,
+          "seconds": 103.475,
+          "tokens": 149295,
+          "price_usd": 0.0295,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "cpp-memory-bus",
+          "passed": false,
+          "seconds": 1121.073,
+          "tokens": 644592,
+          "price_usd": 0.1465,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "rust-wal-queue",
+          "passed": false,
+          "seconds": 407.551,
+          "tokens": 367575,
+          "price_usd": 0.0959,
+          "points_earned": 8.0,
+          "points_total": 10.0
+        },
+        {
+          "task_id": "click-context-provenance",
+          "passed": true,
+          "seconds": 896.556,
+          "tokens": 2627532,
+          "price_usd": 0.2886,
           "points_earned": 10.0,
           "points_total": 10.0
         }

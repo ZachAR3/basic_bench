@@ -167,8 +167,9 @@ export OPENCODE_GO_API_KEY='...'
 ./scripts/run_opencode_go_matrix.sh
 ```
 
-The script covers the original OpenCode Go comparison set. Each model receives
-a separate run ID and workspace.
+The script covers the maintained OpenCode Go comparison set, including
+DeepSeek V4 Flash, MiMo V2.5, and Qwen3.6 Plus. Each model receives a separate
+run ID and workspace.
 
 Run only the five extended multi-language tasks and append them to existing
 result files:

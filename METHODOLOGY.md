@@ -85,7 +85,12 @@ The primary metrics are task pass rate and points earned. Secondary diagnostics 
 - timeout and agent exit status;
 - files and lines changed;
 - visible versus held-out failures;
-- wall-clock time for automated runs.
+- wall-clock time for automated runs;
+- provider-reported token use and calculated cost.
+
+Reviewed evaluations may include a ten-point "syntax" score for readability,
+reuse, focus, and maintainability. This score is explicitly subjective,
+reviewer-biased, and separate from held-out functional grading.
 
 Manual runs do not capture reliable wall-clock time or full agent transcripts.
 

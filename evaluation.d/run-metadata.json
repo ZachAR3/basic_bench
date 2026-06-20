@@ -127,5 +127,44 @@
     "price_usd": null,
     "price_source": "opencode_usage",
     "times_recorded": true
+  },
+  {
+    "run_id": "mimo-v2.5-opencode-go",
+    "label": "MiMo V2.5",
+    "model": "MiMo V2.5",
+    "route": "OpenCode Go",
+    "date": "2026-06-20",
+    "scope": "full",
+    "price_usd": null,
+    "price_source": "opencode_usage",
+    "times_recorded": true,
+    "syntax_score": 7.0,
+    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
+  },
+  {
+    "run_id": "deepseek-v4-flash-opencode-go",
+    "label": "DeepSeek V4 Flash",
+    "model": "DeepSeek V4 Flash",
+    "route": "OpenCode Go",
+    "date": "2026-06-20",
+    "scope": "full",
+    "price_usd": null,
+    "price_source": "opencode_usage",
+    "times_recorded": true,
+    "syntax_score": 7.5,
+    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
+  },
+  {
+    "run_id": "qwen3.6-plus-opencode-go",
+    "label": "Qwen3.6 Plus",
+    "model": "Qwen3.6 Plus",
+    "route": "OpenCode Go",
+    "date": "2026-06-20",
+    "scope": "full",
+    "price_usd": null,
+    "price_source": "opencode_usage",
+    "times_recorded": true,
+    "syntax_score": 8.0,
+    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
   }
 ]

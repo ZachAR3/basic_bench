@@ -20,6 +20,12 @@ ZCODE_GO_GLM52_PRICING = {
     "cache_read": 0.26,
 }
 OPENCODE_GO_PRICING = {
+    "DeepSeek V4 Flash": {
+        "input": 0.14,
+        "output": 0.28,
+        "cache_read": 0.0028,
+        "cache_write": 0.0,
+    },
     "GLM-5.2": {
         "input": 1.4,
         "output": 4.4,
@@ -56,6 +62,12 @@ OPENCODE_GO_PRICING = {
         "cache_read": 0.0145,
         "cache_write": 0.0,
     },
+    "MiMo V2.5": {
+        "input": 0.14,
+        "output": 0.28,
+        "cache_read": 0.0028,
+        "cache_write": 0.0,
+    },
     "Qwen3.7 Max": {
         "input": 2.5,
         "output": 7.5,
@@ -75,9 +87,22 @@ OPENCODE_GO_PRICING = {
             "cache_write": 1.5,
         },
     },
+    "Qwen3.6 Plus": {
+        "input": 0.5,
+        "output": 3.0,
+        "cache_read": 0.05,
+        "cache_write": 0.625,
+        "tier_context": 256000,
+        "tier": {
+            "input": 2.0,
+            "output": 6.0,
+            "cache_read": 0.2,
+            "cache_write": 2.5,
+        },
+    },
 }
 # USD per million tokens. Snapshot from OpenCode Go model metadata used by the
-# benchmark on 2026-06-19.
+# benchmark on 2026-06-20.
 
 
 def load_records(path: Path) -> list[dict]:
@@ -157,36 +182,38 @@ def opencode_usage(record: dict) -> list[dict[str, int]]:
     return usage
 
 
-def opencode_price(meta: dict, records: list[dict]) -> float | None:
+def opencode_record_price(meta: dict, record: dict) -> float | None:
     rates = OPENCODE_GO_PRICING.get(meta["model"])
     if rates is None:
         return None
     total = 0.0
     found = False
-    for record in records:
-        for usage in opencode_usage(record):
-            found = True
-            request_rates = rates
-            context_tokens = (
-                usage["input"]
-                + usage["cache_read"]
-                + usage["cache_write"]
+    for usage in opencode_usage(record):
+        found = True
+        request_rates = rates
+        context_tokens = (
+            usage["input"]
+            + usage["cache_read"]
+            + usage["cache_write"]
+        )
+        if rates.get("tier") and context_tokens > rates["tier_context"]:
+            request_rates = rates["tier"]
+        total += sum(
+            usage[key] * request_rates[key]
+            for key in (
+                "input",
+                "output",
+                "cache_read",
+                "cache_write",
             )
-            if (
-                rates.get("tier")
-                and context_tokens > rates["tier_context"]
-            ):
-                request_rates = rates["tier"]
-            total += sum(
-                usage[key] * request_rates[key]
-                for key in (
-                    "input",
-                    "output",
-                    "cache_read",
-                    "cache_write",
-                )
-            ) / 1_000_000
+        ) / 1_000_000
     return round(total, 4) if found else None
+
+
+def opencode_price(meta: dict, records: list[dict]) -> float | None:
+    prices = [opencode_record_price(meta, record) for record in records]
+    available = [price for price in prices if price is not None]
+    return round(sum(available), 4) if available else None
 
 
 def zcode_go_price(records: list[dict]) -> float | None:
@@ -218,12 +245,16 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         seconds = record["agent"].get("wall_seconds")
         if not meta["times_recorded"]:
             seconds = None
+        task_price = None
+        if meta.get("price_source") == "opencode_usage":
+            task_price = opencode_record_price(meta, record)
         tasks.append(
             {
                 "task_id": record["task_id"],
                 "passed": bool(record["score"]["passed"]),
                 "seconds": round(seconds, 3) if seconds is not None else None,
                 "tokens": provider_tokens(record),
+                "price_usd": task_price,
                 "points_earned": float(
                     record["score"].get("points", {}).get(
                         "earned", 10 if record["score"]["passed"] else 0
@@ -280,6 +311,8 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         ),
         "wasted_tokens": wasted_tokens or None,
         "wasted_tokens_estimated": False,
+        "syntax_score": meta.get("syntax_score"),
+        "syntax_score_note": meta.get("syntax_score_note"),
         "tasks": tasks,
     }
 

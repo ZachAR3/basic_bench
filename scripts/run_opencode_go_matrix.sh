@@ -19,6 +19,9 @@ cd "$root"
 export OPENCODE_STALL_TIMEOUT="${OPENCODE_STALL_TIMEOUT:-300}"
 
 models=(
+  "deepseek-v4-flash"
+  "mimo-v2.5"
+  "qwen3.6-plus"
   "kimi-k2.6"
   "minimax-m3"
   "deepseek-v4-pro"
@@ -38,13 +41,13 @@ for model in "${models[@]}"; do
     python3 bench.py run-private \
       --provider opencode \
       --run-id "$run_id" \
-      --agent-timeout 1800 \
+      --agent-timeout 2400 \
       --resume 2>&1 | tee -a "$log"
   else
     python3 bench.py run-private \
       --provider opencode \
       --run-id "$run_id" \
-      --agent-timeout 1800 2>&1 | tee -a "$log"
+      --agent-timeout 2400 2>&1 | tee -a "$log"
   fi
 
   status="$(
@@ -67,7 +70,7 @@ PY
   compact="${status%%:*}"
   large="${status##*:}"
 
-  if [[ "$compact" == "10" && "$large" == "0" ]]; then
+  if [[ "$compact" == "15" && "$large" == "0" ]]; then
     echo "Starting ${model} large task" | tee -a "$log"
     python3 bench.py run-large \
       --provider opencode \

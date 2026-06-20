@@ -70,7 +70,7 @@
     "grader_timeout": 300,
     "trusted_dependency_dirs": ["node_modules", "dist", ".bench-tests"],
     "immutable_dependency_dirs": ["node_modules"],
-    "mutable_dependency_paths": ["node_modules/.vite"],
+    "mutable_dependency_paths": ["node_modules/.vite", "node_modules/.vite-temp"],
     "protected_paths": [
       "package.json",
       "package-lock.json",
