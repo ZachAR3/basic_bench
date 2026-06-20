@@ -137,9 +137,7 @@
     "scope": "full",
     "price_usd": null,
     "price_source": "opencode_usage",
-    "times_recorded": true,
-    "syntax_score": 7.0,
-    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
+    "times_recorded": true
   },
   {
     "run_id": "deepseek-v4-flash-opencode-go",
@@ -150,9 +148,7 @@
     "scope": "full",
     "price_usd": null,
     "price_source": "opencode_usage",
-    "times_recorded": true,
-    "syntax_score": 7.5,
-    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
+    "times_recorded": true
   },
   {
     "run_id": "qwen3.6-plus-opencode-go",
@@ -163,8 +159,6 @@
     "scope": "full",
     "price_usd": null,
     "price_source": "opencode_usage",
-    "times_recorded": true,
-    "syntax_score": 8.0,
-    "syntax_score_note": "Subjective reviewer score for readability, reuse, focus, and maintainability."
+    "times_recorded": true
   }
 ]

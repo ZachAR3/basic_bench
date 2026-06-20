@@ -88,9 +88,21 @@ The primary metrics are task pass rate and points earned. Secondary diagnostics 
 - wall-clock time for automated runs;
 - provider-reported token use and calculated cost.
 
-Reviewed evaluations may include a ten-point "syntax" score for readability,
-reuse, focus, and maintainability. This score is explicitly subjective,
-reviewer-biased, and separate from held-out functional grading.
+Reviewed evaluations include a ten-point "syntax" patch-quality score for
+readability, reuse, focus, and maintainability. The same reviewer-authored
+rubric is applied to every run:
+
+- 9–10: very focused and concise;
+- 8–8.5: clear and reasonably focused;
+- 7–7.5: readable, with some duplication or expansion;
+- 5–6.5: understandable but verbose or difficult to audit;
+- 1–4.5: off-target, incomplete, or invalidated by integrity problems.
+
+Task scores account for implementation churn, patch scope, unnecessary files,
+incomplete exits, and integrity violations. A task with no implementation patch
+is `N/A` and excluded from the aggregate; coverage is always reported beside
+the average. The score is explicitly subjective, reviewer-biased, and separate
+from held-out functional grading.
 
 Manual runs do not capture reliable wall-clock time or full agent transcripts.
 

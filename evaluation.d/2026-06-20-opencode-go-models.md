@@ -16,12 +16,13 @@ higher rate for requests above 256K context.
 
 | Model | Task passes | Points | Time | Cost | Syntax |
 |---|---:|---:|---:|---:|---:|
-| MiMo V2.5 | 9/16 | 116/160 | 3,374.195 s | $0.1459 | 7.0/10 |
-| DeepSeek V4 Flash | 8/16 | 116/160 | 2,332.283 s | $0.1181 | 7.5/10 |
-| Qwen3.6 Plus | 8/16 | 116/160 | 4,668.412 s | $0.9689 | 8.0/10 |
+| MiMo V2.5 | 9/16 | 116/160 | 3,374.195 s | $0.1459 | 8.1/10 |
+| DeepSeek V4 Flash | 8/16 | 116/160 | 2,332.283 s | $0.1181 | 8.2/10 |
+| Qwen3.6 Plus | 8/16 | 116/160 | 4,668.412 s | $0.9689 | 8.2/10 |
 
-The syntax score is subjective and reviewer-biased. It rates readability,
-reuse, focus, and maintainability, not functional correctness.
+The syntax scores were recalibrated with the same reviewer-authored rubric now
+used for every retained run. They rate readability, reuse, focus, and
+maintainability, not functional correctness.
 
 ## MiMo V2.5
 
@@ -64,7 +65,7 @@ Failures:
 Quality: the code is readable and generally idiomatic, and the full Rust and
 Click solutions are strong. The main weakness is patch size: several solutions
 are much larger than necessary, duplicate state-transition logic, and become
-harder to audit. Syntax score: **7.0/10**.
+harder to audit. Syntax score: **8.1/10**.
 
 ## DeepSeek V4 Flash
 
@@ -111,7 +112,7 @@ Quality: this was the fastest and cheapest run. Patches were focused and
 usually smaller than MiMo's, with sensible use of futures and helper state.
 Several shortcuts were brittle, especially the private-symbol URL metadata,
 mutable Click snapshot, and repeated C++ translation work. Syntax score:
-**7.5/10**.
+**8.2/10**.
 
 ## Qwen3.6 Plus
 
@@ -157,7 +158,7 @@ Quality: the Click patch is concise and fully correct, and the C++ region
 helper is the best reuse among these three implementations. Naming and control
 flow are consistently clear. The main deductions are large Rust/C++ patches
 and several assumptions that were tidy in code but wrong at API boundaries.
-Syntax score: **8.0/10**.
+Syntax score: **8.2/10**.
 
 ## Grading correction
 

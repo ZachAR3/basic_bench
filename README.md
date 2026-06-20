@@ -8,6 +8,7 @@ tasks, and one repository-scale task based on Click 8.4.0. It is intended for
 local comparisons between models, providers, and agent runtimes.
 
 [View benchmark results and reviewed evaluations](evaluation.d/README.md).
+[View individual task results for every retained run](evaluation.d/task-results.md).
 
 ![Full-suite benchmark point scores](docs/results.svg)
 

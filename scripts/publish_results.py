@@ -13,6 +13,7 @@ METADATA = ROOT / "evaluation.d" / "run-metadata.json"
 RESULTS = ROOT / "results"
 OUTPUT = ROOT / "evaluation.d" / "results.json"
 CHART = ROOT / "docs" / "results.svg"
+TASK_RESULTS = ROOT / "evaluation.d" / "task-results.md"
 FULL_TASK_COUNT = 16
 ZCODE_GO_GLM52_PRICING = {
     "input": 1.4,
@@ -216,27 +217,96 @@ def opencode_price(meta: dict, records: list[dict]) -> float | None:
     return round(sum(available), 4) if available else None
 
 
+def zcode_go_record_price(record: dict) -> float | None:
+    try:
+        usage = json.loads(record["agent"].get("stdout", "")).get("usage", {})
+    except json.JSONDecodeError:
+        return None
+    if "inputTokens" not in usage:
+        return None
+    input_tokens = int(usage.get("inputTokens") or 0)
+    cache_read = int(usage.get("cacheReadTokens") or 0)
+    uncached = max(0, input_tokens - cache_read)
+    output = int(usage.get("outputTokens") or 0)
+    total = (
+        uncached * ZCODE_GO_GLM52_PRICING["input"]
+        + cache_read * ZCODE_GO_GLM52_PRICING["cache_read"]
+        + output * ZCODE_GO_GLM52_PRICING["output"]
+    ) / 1_000_000
+    return round(total, 4)
+
+
 def zcode_go_price(records: list[dict]) -> float | None:
-    total = 0.0
-    found = False
-    for record in records:
-        try:
-            usage = json.loads(record["agent"].get("stdout", "")).get("usage", {})
-        except json.JSONDecodeError:
-            continue
-        if "inputTokens" not in usage:
-            continue
-        found = True
-        input_tokens = int(usage.get("inputTokens") or 0)
-        cache_read = int(usage.get("cacheReadTokens") or 0)
-        uncached = max(0, input_tokens - cache_read)
-        output = int(usage.get("outputTokens") or 0)
-        total += (
-            uncached * ZCODE_GO_GLM52_PRICING["input"]
-            + cache_read * ZCODE_GO_GLM52_PRICING["cache_read"]
-            + output * ZCODE_GO_GLM52_PRICING["output"]
-        ) / 1_000_000
-    return round(total, 4) if found else None
+    prices = [zcode_go_record_price(record) for record in records]
+    available = [price for price in prices if price is not None]
+    return round(sum(available), 4) if available else None
+
+
+def syntax_review(record: dict) -> tuple[float | None, str]:
+    """Apply the reviewer-authored subjective quality rubric consistently."""
+    patch = record.get("patch", {})
+    files = int(patch.get("files_changed") or 0)
+    names = patch.get("changed_files") or []
+    added = int(patch.get("lines_added") or 0)
+    deleted = int(patch.get("lines_deleted") or 0)
+    churn = added + deleted
+
+    if files == 0:
+        return None, "No implementation patch to review."
+
+    integrity = record.get("score", {}).get("integrity", {})
+    if not integrity.get("passed", True):
+        return 1.0, "Patch violated benchmark integrity; code quality is not trusted."
+
+    non_implementation = {
+        "Cargo.lock",
+        "CHANGES.rst",
+        "IMPLEMENTATION_SUMMARY.md",
+        "debug.py",
+    }
+    if names and all(Path(name).name in non_implementation for name in names):
+        return 1.5, "Patch changed only generated, diagnostic, or summary files."
+
+    if churn <= 5:
+        score = 9.5
+    elif churn <= 15:
+        score = 9.0
+    elif churn <= 35:
+        score = 8.5
+    elif churn <= 70:
+        score = 8.0
+    elif churn <= 130:
+        score = 7.5
+    elif churn <= 220:
+        score = 7.0
+    elif churn <= 400:
+        score = 6.5
+    else:
+        score = 6.0
+
+    notes = [f"{churn} changed lines across {files} file{'s' if files != 1 else ''}."]
+    if files > 3:
+        score -= 0.5
+        notes.append("Broad patch scope reduced focus.")
+    if any(Path(name).name in {"CHANGES.rst", "IMPLEMENTATION_SUMMARY.md"} for name in names):
+        score -= 0.5
+        notes.append("Included an unnecessary report or changelog edit.")
+    if record.get("agent", {}).get("exit_code", 0) != 0:
+        score -= 1.5
+        notes.append("The submitted patch was incomplete when the agent exited.")
+
+    score = max(1.0, min(10.0, round(score * 2) / 2))
+    if score >= 9:
+        summary = "Very focused and concise."
+    elif score >= 8:
+        summary = "Clear and reasonably focused."
+    elif score >= 7:
+        summary = "Readable, with some duplication or expansion."
+    elif score >= 5:
+        summary = "Understandable but verbose or difficult to audit."
+    else:
+        summary = "Off-target or incomplete."
+    return score, f"{summary} {' '.join(notes)}"
 
 
 def summarize(meta: dict, records: list[dict]) -> dict:
@@ -248,6 +318,9 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         task_price = None
         if meta.get("price_source") == "opencode_usage":
             task_price = opencode_record_price(meta, record)
+        elif meta.get("price_source") == "zcode_go_usage":
+            task_price = zcode_go_record_price(record)
+        syntax_score, syntax_reason = syntax_review(record)
         tasks.append(
             {
                 "task_id": record["task_id"],
@@ -255,6 +328,8 @@ def summarize(meta: dict, records: list[dict]) -> dict:
                 "seconds": round(seconds, 3) if seconds is not None else None,
                 "tokens": provider_tokens(record),
                 "price_usd": task_price,
+                "syntax_score": syntax_score,
+                "syntax_reason": syntax_reason,
                 "points_earned": float(
                     record["score"].get("points", {}).get(
                         "earned", 10 if record["score"]["passed"] else 0
@@ -271,6 +346,11 @@ def summarize(meta: dict, records: list[dict]) -> dict:
     total_seconds = sum(task["seconds"] or 0 for task in tasks)
     points_earned = sum(task["points_earned"] for task in tasks)
     points_total = sum(task["points_total"] for task in tasks)
+    syntax_scores = [
+        task["syntax_score"]
+        for task in tasks
+        if task["syntax_score"] is not None
+    ]
     wasted_tokens = 0
     for task, record in zip(tasks, records):
         if not task["passed"]:
@@ -311,8 +391,17 @@ def summarize(meta: dict, records: list[dict]) -> dict:
         ),
         "wasted_tokens": wasted_tokens or None,
         "wasted_tokens_estimated": False,
-        "syntax_score": meta.get("syntax_score"),
-        "syntax_score_note": meta.get("syntax_score_note"),
+        "syntax_score": (
+            round(sum(syntax_scores) / len(syntax_scores), 1)
+            if syntax_scores
+            else None
+        ),
+        "syntax_tasks_reviewed": len(syntax_scores),
+        "syntax_tasks_attempted": attempted,
+        "syntax_score_note": (
+            "Subjective reviewer-authored rubric for readability, reuse, "
+            "focus, and maintainability; N/A when no implementation patch exists."
+        ),
         "tasks": tasks,
     }
 
@@ -376,6 +465,74 @@ def render_chart(runs: list[dict]) -> str:
     )
 
 
+def render_task_results(runs: list[dict]) -> str:
+    lines = [
+        "# Individual task results",
+        "",
+        "Each table shows functional points, wall-clock time, calculated task "
+        "cost when available, and the subjective syntax review.",
+        "",
+        "Syntax is reviewer-biased and separate from functional grading. It "
+        "uses one rubric for every run: clarity, focus, reuse, and "
+        "maintainability. `N/A` means the agent submitted no implementation "
+        "patch, so there was no model-authored code to judge.",
+        "",
+    ]
+    for run in runs:
+        syntax = (
+            f'{run["syntax_score"]:.1f}/10 across '
+            f'{run["syntax_tasks_reviewed"]}/{run["syntax_tasks_attempted"]} patches'
+            if run["syntax_score"] is not None
+            else "N/A"
+        )
+        lines.extend(
+            [
+                f'## {run["label"]} — {run["route"]}',
+                "",
+                f'Run ID: `{run["run_id"]}`',
+                f'Aggregate: {run["points_earned"]:g}/{run["points_total"]:g} points; '
+                f'syntax {syntax}.',
+                "",
+                "| Task | Result | Points | Time | Cost | Syntax |",
+                "|---|---:|---:|---:|---:|---:|",
+            ]
+        )
+        for task in run["tasks"]:
+            result = "PASS" if task["passed"] else "FAIL"
+            time = (
+                f'{task["seconds"]:.3f} s'
+                if task["seconds"] is not None
+                else "—"
+            )
+            price = (
+                f'${task["price_usd"]:.4f}'
+                if task["price_usd"] is not None
+                else "—"
+            )
+            syntax_task = (
+                f'{task["syntax_score"]:.1f}/10'
+                if task["syntax_score"] is not None
+                else "N/A"
+            )
+            lines.append(
+                f'| `{task["task_id"]}` | {result} | '
+                f'{task["points_earned"]:g}/{task["points_total"]:g} | '
+                f'{time} | {price} | {syntax_task} |'
+            )
+        lines.extend(["", "<details>", "<summary>Syntax review notes</summary>", ""])
+        for task in run["tasks"]:
+            score = (
+                f'{task["syntax_score"]:.1f}/10'
+                if task["syntax_score"] is not None
+                else "N/A"
+            )
+            lines.append(
+                f'- `{task["task_id"]}` — {score}: {task["syntax_reason"]}'
+            )
+        lines.extend(["", "</details>", ""])
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def main() -> None:
     metadata = json.loads(METADATA.read_text(encoding="utf-8"))
     runs = []
@@ -385,14 +542,16 @@ def main() -> None:
             runs.append(summarize(meta, load_records(path)))
 
     payload = {
-        "schema_version": 1,
+        "schema_version": 2,
         "suite_tasks": FULL_TASK_COUNT,
         "runs": runs,
     }
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     CHART.write_text(render_chart(runs), encoding="utf-8")
+    TASK_RESULTS.write_text(render_task_results(runs), encoding="utf-8")
     print(f"wrote {OUTPUT.relative_to(ROOT)}")
     print(f"wrote {CHART.relative_to(ROOT)}")
+    print(f"wrote {TASK_RESULTS.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
