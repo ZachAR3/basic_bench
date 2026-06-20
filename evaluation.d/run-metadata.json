@@ -11,12 +11,24 @@
   },
   {
     "run_id": "glm52-test1-go",
-    "label": "GLM-5.2 Go",
+    "label": "GLM-5.2 Z Code CLI",
     "model": "GLM-5.2",
-    "route": "OpenCode Go",
+    "route": "Z Code CLI",
     "date": "2026-06-18",
     "scope": "full",
-    "price_usd": 2.44,
+    "price_usd": null,
+    "price_source": "zcode_go_usage",
+    "times_recorded": true
+  },
+  {
+    "run_id": "glm-5.2-opencode-go",
+    "label": "GLM-5.2",
+    "model": "GLM-5.2",
+    "route": "OpenCode Go",
+    "date": "2026-06-19",
+    "scope": "full",
+    "price_usd": null,
+    "price_source": "opencode_usage",
     "times_recorded": true
   },
   {

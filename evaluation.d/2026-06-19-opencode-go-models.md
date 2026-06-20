@@ -2,6 +2,9 @@
 
 Date: 2026-06-19
 
+This document records the original 11-task phase. The complete 16-task
+comparison is in [Multi-language suite extension](2026-06-19-multilanguage-suite.md).
+
 Seven models were run through OpenCode Go. Each task used a fresh
 workspace, one scored attempt, held-out grading, and no visible tests on the
 four private compact tasks or the repository-scale task.

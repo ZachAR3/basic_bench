@@ -167,9 +167,19 @@ export OPENCODE_GO_API_KEY='...'
 ./scripts/run_opencode_go_matrix.sh
 ```
 
-The script covers Kimi K2.6, MiniMax M3, DeepSeek V4 Pro, MiMo V2.5 Pro,
-Qwen3.7 Max, and Qwen3.7 Plus. Each model receives a separate run ID and
-workspace.
+The script covers the original OpenCode Go comparison set. Each model receives
+a separate run ID and workspace.
+
+Run only the five extended multi-language tasks and append them to existing
+result files:
+
+```bash
+./scripts/run_extended_opencode_matrix.sh
+```
+
+The extended matrix covers GLM-5.2, Kimi K2.7 Code, Kimi K2.6, MiniMax M3,
+DeepSeek V4 Pro, MiMo V2.5 Pro, Qwen3.7 Max, and Qwen3.7 Plus. It runs
+sequentially to avoid subscription concurrency and rate-limit interference.
 
 For a long run launched outside the shell that holds the key, place it in the
 current macOS login session without printing it:

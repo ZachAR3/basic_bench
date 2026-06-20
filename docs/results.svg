@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="920" height="594" viewBox="0 0 920 594" role="img" aria-labelledby="title desc">
-<title id="title">Full-suite benchmark pass rates</title>
-<desc id="desc">Pass rates for complete eleven-task benchmark runs.</desc>
+<title id="title">Full-suite benchmark point scores</title>
+<desc id="desc">Point scores for complete sixteen-task benchmark runs.</desc>
 <style>
 text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #24292f; }
 .heading { font-size: 22px; font-weight: 600; }
@@ -14,46 +14,46 @@ text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   .bar { fill: #58a6d6; }
 }
 </style>
-<text x="24" y="36" class="heading">Full-suite pass rates</text>
-<text x="24" y="58" class="score">Eleven tasks, one attempt per task</text>
-<text x="24" y="92" class="label">GLM-5.2 Go</text>
+<text x="24" y="36" class="heading">Full-suite point scores</text>
+<text x="24" y="58" class="score">Sixteen tasks, 160 points, one attempt per task</text>
+<text x="24" y="92" class="label">GPT-5.5 high</text>
 <rect x="250" y="72" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="72" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="91" class="score">9/11 (81.8%)</text>
-<text x="24" y="140" class="label">GLM-5.2 desktop</text>
+<rect x="250" y="72" width="438.5" height="26" rx="3" class="bar"/>
+<text x="804" y="91" class="score">130/160 (81.2%)</text>
+<text x="24" y="140" class="label">Qwen3.7 Plus</text>
 <rect x="250" y="120" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="120" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="139" class="score">9/11 (81.8%)</text>
-<text x="24" y="188" class="label">GPT-5.5 high</text>
+<rect x="250" y="120" width="438.5" height="26" rx="3" class="bar"/>
+<text x="804" y="139" class="score">130/160 (81.2%)</text>
+<text x="24" y="188" class="label">Kimi K2.7 Code</text>
 <rect x="250" y="168" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="168" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="187" class="score">9/11 (81.8%)</text>
-<text x="24" y="236" class="label">MiniMax M3</text>
+<rect x="250" y="168" width="418.5" height="26" rx="3" class="bar"/>
+<text x="804" y="187" class="score">124/160 (77.5%)</text>
+<text x="24" y="236" class="label">DeepSeek V4 Pro</text>
 <rect x="250" y="216" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="216" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="235" class="score">9/11 (81.8%)</text>
-<text x="24" y="284" class="label">Qwen3.7 Max</text>
+<rect x="250" y="216" width="391.5" height="26" rx="3" class="bar"/>
+<text x="804" y="235" class="score">116/160 (72.5%)</text>
+<text x="24" y="284" class="label">GLM-5.2</text>
 <rect x="250" y="264" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="264" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="283" class="score">9/11 (81.8%)</text>
-<text x="24" y="332" class="label">Qwen3.7 Plus</text>
+<rect x="250" y="264" width="384.5" height="26" rx="3" class="bar"/>
+<text x="804" y="283" class="score">114/160 (71.2%)</text>
+<text x="24" y="332" class="label">MiniMax M3</text>
 <rect x="250" y="312" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="312" width="441.7" height="26" rx="3" class="bar"/>
-<text x="804" y="331" class="score">9/11 (81.8%)</text>
-<text x="24" y="380" class="label">DeepSeek V4 Pro</text>
+<rect x="250" y="312" width="384.5" height="26" rx="3" class="bar"/>
+<text x="804" y="331" class="score">114/160 (71.2%)</text>
+<text x="24" y="380" class="label">Qwen3.7 Max</text>
 <rect x="250" y="360" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="360" width="392.6" height="26" rx="3" class="bar"/>
-<text x="804" y="379" class="score">8/11 (72.7%)</text>
-<text x="24" y="428" class="label">Kimi K2.7 Code</text>
+<rect x="250" y="360" width="384.5" height="26" rx="3" class="bar"/>
+<text x="804" y="379" class="score">114/160 (71.2%)</text>
+<text x="24" y="428" class="label">GLM-5.2 Z Code CLI</text>
 <rect x="250" y="408" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="408" width="392.6" height="26" rx="3" class="bar"/>
-<text x="804" y="427" class="score">8/11 (72.7%)</text>
+<rect x="250" y="408" width="378.0" height="26" rx="3" class="bar"/>
+<text x="804" y="427" class="score">112/160 (70.0%)</text>
 <text x="24" y="476" class="label">Kimi K2.6</text>
 <rect x="250" y="456" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="456" width="343.4" height="26" rx="3" class="bar"/>
-<text x="804" y="475" class="score">7/11 (63.6%)</text>
+<rect x="250" y="456" width="317.5" height="26" rx="3" class="bar"/>
+<text x="804" y="475" class="score">94/160 (58.8%)</text>
 <text x="24" y="524" class="label">MiMo V2.5 Pro</text>
 <rect x="250" y="504" width="540" height="26" rx="3" class="track"/>
-<rect x="250" y="504" width="294.3" height="26" rx="3" class="bar"/>
-<text x="804" y="523" class="score">6/11 (54.5%)</text>
+<rect x="250" y="504" width="303.5" height="26" rx="3" class="bar"/>
+<text x="804" y="523" class="score">90/160 (56.2%)</text>
 </svg>

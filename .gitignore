@@ -5,6 +5,8 @@
 .venv/
 __pycache__/
 *.py[cod]
+node_modules/
+target/
 
 # Generated benchmark data
 results/

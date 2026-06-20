@@ -14,11 +14,16 @@ The suite contains:
 
 - six compact tasks with basic visible regression tests;
 - four compact tasks with all tests withheld;
+- five multi-language tasks with all tests withheld;
 - one repository-scale task generated from Click 8.4.0 with all tests withheld.
 
 Compact tasks cover parsing, configuration precedence, caching, rate limiting,
 schema migration, Unicode handling, graph ordering, asynchronous retry logic,
 timezone recurrence, and endpoint normalization.
+
+Multi-language tasks cover React concurrent rendering and offline state,
+Java backend idempotency, Godot GDScript and C# persistence, low-level C++
+memory-bus semantics, and Rust WAL recovery.
 
 The Click task requires changes across command dispatch, context state,
 decorators, and public exports.
@@ -69,7 +74,12 @@ A task passes only when:
 2. held-out tests pass;
 3. integrity checks pass.
 
-The primary metric is task pass rate. Secondary diagnostics include:
+Each task is worth ten points. Existing compact and large tasks award all ten
+points only on a full pass. Multi-language tasks contain five independent
+two-point checks, allowing partial credit while retaining the strict task-pass
+metric.
+
+The primary metrics are task pass rate and points earned. Secondary diagnostics include:
 
 - paired pass and failure outcomes;
 - timeout and agent exit status;
@@ -90,9 +100,8 @@ For a fair comparison:
 - record the exact model, provider, agent version, date, timeout, and command;
 - do not retry after seeing held-out results.
 
-The paired exact sign test is reported for convenience. Eleven tasks are too
-few for broad claims about model quality; repeat comparisons with additional
-private tasks.
+The paired exact sign test is reported for convenience. Sixteen tasks remain a
+small diagnostic suite; repeat comparisons with additional private tasks.
 
 ## Benchmark validation
 

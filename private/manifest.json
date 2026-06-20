@@ -58,5 +58,76 @@
     "title": "Strict WebDAV endpoint parsing",
     "agent_visible_tests": false,
     "visible_test_command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  },
+  {
+    "id": "react-offline-sync",
+    "title": "React offline synchronization under concurrent rendering",
+    "agent_visible_tests": false,
+    "visible_test_command": ["true"],
+    "test_runner": "multi_runtime_grader.py",
+    "regression_dir": "regression/react-offline-sync",
+    "hidden_check_count": 5,
+    "grader_timeout": 300,
+    "trusted_dependency_dirs": ["node_modules", "dist", ".bench-tests"],
+    "immutable_dependency_dirs": ["node_modules"],
+    "mutable_dependency_paths": ["node_modules/.vite"],
+    "protected_paths": [
+      "package.json",
+      "package-lock.json",
+      "vite.config.ts",
+      "tsconfig.json",
+      "index.html"
+    ]
+  },
+  {
+    "id": "java-idempotency",
+    "title": "Concurrent Java backend idempotency and ETags",
+    "agent_visible_tests": false,
+    "visible_test_command": ["true"],
+    "test_runner": "multi_runtime_grader.py",
+    "regression_dir": "regression/java-idempotency",
+    "hidden_check_count": 5,
+    "grader_timeout": 300,
+    "trusted_dependency_dirs": [".bench-build"]
+  },
+  {
+    "id": "godot-save-pipeline",
+    "title": "Godot GDScript and C# save pipeline",
+    "agent_visible_tests": false,
+    "visible_test_command": ["true"],
+    "test_runner": "multi_runtime_grader.py",
+    "regression_dir": "regression/godot-save-pipeline",
+    "hidden_check_count": 5,
+    "grader_timeout": 600,
+    "trusted_dependency_dirs": [".godot", ".bench-csharp", "bin", "obj"],
+    "protected_paths": [
+      "project.godot",
+      "csharp/SaveLogic.csproj",
+      "csharp/GodotStubs.cs"
+    ]
+  },
+  {
+    "id": "cpp-memory-bus",
+    "title": "C++ paged emulator memory bus",
+    "agent_visible_tests": false,
+    "visible_test_command": ["true"],
+    "test_runner": "multi_runtime_grader.py",
+    "regression_dir": "regression/cpp-memory-bus",
+    "hidden_check_count": 5,
+    "grader_timeout": 300,
+    "trusted_dependency_dirs": [".bench-build"]
+  },
+  {
+    "id": "rust-wal-queue",
+    "title": "Rust crash-safe leased WAL queue",
+    "agent_visible_tests": false,
+    "visible_test_command": ["true"],
+    "test_runner": "multi_runtime_grader.py",
+    "regression_dir": "regression/rust-wal-queue",
+    "hidden_check_count": 5,
+    "grader_timeout": 600,
+    "trusted_dependency_dirs": ["target", ".bench-target", "tests"],
+    "protected_paths": ["Cargo.toml"],
+    "forbidden_paths": ["build.rs", ".cargo", "rust-toolchain", "rust-toolchain.toml"]
   }
 ]

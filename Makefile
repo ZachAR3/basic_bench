@@ -3,6 +3,7 @@
 setup:
 	git submodule update --init --recursive
 	python3 scripts/init_large_task.py
+	./scripts/setup_multilang.sh
 
 doctor:
 	python3 bench.py doctor

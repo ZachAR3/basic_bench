@@ -219,5 +219,30 @@ class CommandTimeoutTests(unittest.TestCase):
         self.assertIn("trailing stderr", result["stderr"])
 
 
+class PointScoringTests(unittest.TestCase):
+    def test_parses_multi_runtime_points(self):
+        score = bench.parse_point_score(
+            {
+                "stdout": (
+                    'detail\nBENCH_POINTS_JSON:{"earned":6,"total":10,'
+                    '"checks":[{"name":"one","points":2,"passed":true}]}\n'
+                )
+            },
+            False,
+        )
+        self.assertEqual(score["earned"], 6)
+        self.assertEqual(score["total"], 10)
+
+    def test_legacy_task_uses_all_or_nothing_points(self):
+        self.assertEqual(
+            bench.parse_point_score({"stdout": ""}, True)["earned"],
+            10,
+        )
+        self.assertEqual(
+            bench.parse_point_score({"stdout": ""}, False)["earned"],
+            0,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

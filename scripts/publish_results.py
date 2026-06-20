@@ -13,8 +13,19 @@ METADATA = ROOT / "evaluation.d" / "run-metadata.json"
 RESULTS = ROOT / "results"
 OUTPUT = ROOT / "evaluation.d" / "results.json"
 CHART = ROOT / "docs" / "results.svg"
-FULL_TASK_COUNT = 11
+FULL_TASK_COUNT = 16
+ZCODE_GO_GLM52_PRICING = {
+    "input": 1.4,
+    "output": 4.4,
+    "cache_read": 0.26,
+}
 OPENCODE_GO_PRICING = {
+    "GLM-5.2": {
+        "input": 1.4,
+        "output": 4.4,
+        "cache_read": 0.26,
+        "cache_write": 0.0,
+    },
     "Kimi K2.6": {
         "input": 0.95,
         "output": 4.0,
@@ -178,6 +189,29 @@ def opencode_price(meta: dict, records: list[dict]) -> float | None:
     return round(total, 4) if found else None
 
 
+def zcode_go_price(records: list[dict]) -> float | None:
+    total = 0.0
+    found = False
+    for record in records:
+        try:
+            usage = json.loads(record["agent"].get("stdout", "")).get("usage", {})
+        except json.JSONDecodeError:
+            continue
+        if "inputTokens" not in usage:
+            continue
+        found = True
+        input_tokens = int(usage.get("inputTokens") or 0)
+        cache_read = int(usage.get("cacheReadTokens") or 0)
+        uncached = max(0, input_tokens - cache_read)
+        output = int(usage.get("outputTokens") or 0)
+        total += (
+            uncached * ZCODE_GO_GLM52_PRICING["input"]
+            + cache_read * ZCODE_GO_GLM52_PRICING["cache_read"]
+            + output * ZCODE_GO_GLM52_PRICING["output"]
+        ) / 1_000_000
+    return round(total, 4) if found else None
+
+
 def summarize(meta: dict, records: list[dict]) -> dict:
     tasks = []
     for record in records:
@@ -190,33 +224,52 @@ def summarize(meta: dict, records: list[dict]) -> dict:
                 "passed": bool(record["score"]["passed"]),
                 "seconds": round(seconds, 3) if seconds is not None else None,
                 "tokens": provider_tokens(record),
+                "points_earned": float(
+                    record["score"].get("points", {}).get(
+                        "earned", 10 if record["score"]["passed"] else 0
+                    )
+                ),
+                "points_total": float(
+                    record["score"].get("points", {}).get("total", 10)
+                ),
             }
         )
 
     attempted = len(tasks)
     passed = sum(task["passed"] for task in tasks)
     total_seconds = sum(task["seconds"] or 0 for task in tasks)
+    points_earned = sum(task["points_earned"] for task in tasks)
+    points_total = sum(task["points_total"] for task in tasks)
     wasted_tokens = 0
-    for task in tasks:
-        if task["passed"]:
+    for task, record in zip(tasks, records):
+        if not task["passed"]:
+            if task["tokens"] is not None and task["tokens"] > 0:
+                wasted_tokens += task["tokens"]
             continue
-        if task["tokens"] is not None and task["tokens"] > 0:
-            wasted_tokens += task["tokens"]
-    wasted_tokens += sum(
-        int(record["agent"].get("abandoned_tokens", 0)) for record in records
-    )
+        # For a task that eventually passed, only completed requests abandoned
+        # during a fresh-context reset count as wasted. The unanswered stalled
+        # request has no provider usage and contributes zero.
+        wasted_tokens += int(record["agent"].get("abandoned_tokens", 0))
     complete = meta["scope"] == "full" and attempted == FULL_TASK_COUNT
     price = meta.get("price_usd")
     if meta.get("price_source") == "opencode_usage":
         price = opencode_price(meta, records)
+    elif meta.get("price_source") == "zcode_go_usage":
+        price = zcode_go_price(records)
     return {
         **meta,
         "price_usd": price,
-        "price_calculated": meta.get("price_source") == "opencode_usage",
+        "price_calculated": meta.get("price_source")
+        in {"opencode_usage", "zcode_go_usage"},
         "complete": complete,
         "passed": passed,
         "attempted": attempted,
         "pass_rate": round(100 * passed / attempted, 1) if attempted else 0,
+        "points_earned": points_earned,
+        "points_total": points_total,
+        "points_rate": round(100 * points_earned / points_total, 1)
+        if points_total
+        else 0,
         "total_seconds": (
             round(total_seconds, 3) if meta["times_recorded"] else None
         ),
@@ -234,7 +287,7 @@ def summarize(meta: dict, records: list[dict]) -> dict:
 def render_chart(runs: list[dict]) -> str:
     ranked = sorted(
         (run for run in runs if run["scope"] == "full" and run["complete"]),
-        key=lambda run: (-run["pass_rate"], run["label"]),
+        key=lambda run: (-run["points_rate"], run["label"]),
     )
     width = 920
     row_height = 48
@@ -248,9 +301,12 @@ def render_chart(runs: list[dict]) -> str:
     rows = []
     for index, run in enumerate(ranked):
         y = top + index * row_height
-        filled = bar_width * run["pass_rate"] / 100
+        filled = bar_width * run["points_rate"] / 100
         label = html.escape(run["label"])
-        score = f'{run["passed"]}/{run["attempted"]} ({run["pass_rate"]:.1f}%)'
+        score = (
+            f'{run["points_earned"]:g}/{run["points_total"]:g} '
+            f'({run["points_rate"]:.1f}%)'
+        )
         rows.extend(
             [
                 f'<text x="{label_x}" y="{y + 20}" class="label">{label}</text>',
@@ -263,8 +319,8 @@ def render_chart(runs: list[dict]) -> str:
     return "\n".join(
         [
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
-            '<title id="title">Full-suite benchmark pass rates</title>',
-            '<desc id="desc">Pass rates for complete eleven-task benchmark runs.</desc>',
+            '<title id="title">Full-suite benchmark point scores</title>',
+            '<desc id="desc">Point scores for complete sixteen-task benchmark runs.</desc>',
             "<style>",
             "text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #24292f; }",
             ".heading { font-size: 22px; font-weight: 600; }",
@@ -278,8 +334,8 @@ def render_chart(runs: list[dict]) -> str:
             "  .bar { fill: #58a6d6; }",
             "}",
             "</style>",
-            '<text x="24" y="36" class="heading">Full-suite pass rates</text>',
-            '<text x="24" y="58" class="score">Eleven tasks, one attempt per task</text>',
+            '<text x="24" y="36" class="heading">Full-suite point scores</text>',
+            '<text x="24" y="58" class="score">Sixteen tasks, 160 points, one attempt per task</text>',
             *rows,
             "</svg>",
             "",

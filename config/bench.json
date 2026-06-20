@@ -9,7 +9,12 @@
     "stable-toposort",
     "async-retry",
     "dst-recurrence",
-    "webdav-endpoint"
+    "webdav-endpoint",
+    "react-offline-sync",
+    "java-idempotency",
+    "godot-save-pipeline",
+    "cpp-memory-bus",
+    "rust-wal-queue"
   ],
   "polyglot_tasks": [
     {"language": "python", "task": "poker", "test_command": ["python3", "-m", "unittest", "discover", "-p", "*_test.py"]},

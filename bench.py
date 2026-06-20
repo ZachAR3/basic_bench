@@ -282,7 +282,12 @@ def init_workspace(source: Path, destination: Path, expose_tests: bool = True) -
     if destination.exists():
         shutil.rmtree(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(source, destination, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    shutil.copytree(
+        source,
+        destination,
+        symlinks=True,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+    )
     if not expose_tests:
         tests = destination / "tests"
         if tests.exists():
@@ -405,6 +410,27 @@ def run_regression_tests(task: dict, workspace: Path, env: dict[str, str]) -> di
         )
     result["agent_visible"] = agent_can_see_tests(task)
     return result
+
+
+def parse_point_score(result: dict, default_passed: bool) -> dict:
+    marker = "BENCH_POINTS_JSON:"
+    for line in result.get("stdout", "").splitlines():
+        if line.startswith(marker):
+            try:
+                payload = json.loads(line[len(marker) :])
+            except json.JSONDecodeError:
+                break
+            return {
+                "earned": float(payload["earned"]),
+                "total": float(payload["total"]),
+                "checks": payload.get("checks", []),
+            }
+    total = 10.0
+    return {
+        "earned": total if default_passed else 0.0,
+        "total": total,
+        "checks": [],
+    }
 
 
 def sandbox_profile(workspace: Path) -> Path:
@@ -626,6 +652,15 @@ def run_agent(
 
 def provider_command(provider: str, workspace: Path, prompt: str) -> tuple[list[str], dict[str, str]]:
     env = os.environ.copy()
+    java_home = Path(
+        os.environ.get(
+            "JAVA_HOME",
+            "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+        )
+    )
+    if (java_home / "bin" / "javac").exists():
+        env["JAVA_HOME"] = str(java_home)
+        env["PATH"] = str(java_home / "bin") + os.pathsep + env.get("PATH", "")
     # Some agent CLIs inspect PWD instead of querying their actual process cwd.
     # Keep it inside the isolated workspace so configuration discovery cannot
     # touch the denied benchmark root.
@@ -717,6 +752,28 @@ def workspace_digest(workspace: Path) -> str:
     return digest.hexdigest()
 
 
+def tree_digest(root: Path, ignored: set[Path] | None = None) -> str | None:
+    if not root.exists() and not root.is_symlink():
+        return None
+    ignored = ignored or set()
+    digest = hashlib.sha256()
+    paths = [root] if not root.is_dir() or root.is_symlink() else [root, *root.rglob("*")]
+    for path in sorted(paths, key=lambda item: str(item.relative_to(root.parent))):
+        local = path.relative_to(root)
+        if any(local == item or item in local.parents for item in ignored):
+            continue
+        relative = path.relative_to(root.parent)
+        digest.update(str(relative).encode())
+        if path.is_symlink():
+            digest.update(b"SYMLINK")
+            digest.update(os.readlink(path).encode())
+        elif path.is_file():
+            digest.update(path.read_bytes())
+        elif path.is_dir():
+            digest.update(b"DIRECTORY")
+    return digest.hexdigest()
+
+
 def integrity_checks(
     task: dict,
     workspace: Path,
@@ -724,6 +781,9 @@ def integrity_checks(
     provider: str = "command",
 ) -> dict:
     violations = []
+    trusted_dependency_dirs = set(task.get("trusted_dependency_dirs", []))
+    immutable_dependency_dirs = set(task.get("immutable_dependency_dirs", []))
+    trusted_source = PRIVATE / "tasks" / task["id"]
     if expected_head is not None and git_head(workspace) != expected_head:
         violations.append("Git HEAD changed from the trusted baseline")
     changed = run_cmd(["git", "status", "--porcelain", "--untracked-files=all"], workspace, 30)
@@ -749,13 +809,39 @@ def integrity_checks(
         if any(part in {".git", ".agent-state", "__pycache__"} for part in relative.parts):
             continue
         if path.is_symlink():
-            violations.append(f"symlink present: {relative}")
+            if not any(part in immutable_dependency_dirs for part in relative.parts):
+                violations.append(f"symlink present: {relative}")
+            continue
+        if any(part in trusted_dependency_dirs for part in relative.parts):
+            continue
         if path.is_file() and path.stat().st_size > 1_000_000:
             violations.append(f"oversized file: {relative}")
         if path.name.endswith(".pth"):
             violations.append(f"Python path hook present: {relative}")
         if path.suffix.lower() in {".so", ".dylib", ".dll", ".pyd"}:
             violations.append(f"native executable module present: {relative}")
+
+    for relative_name in task.get("protected_paths", []):
+        relative = Path(relative_name)
+        if tree_digest(workspace / relative) != tree_digest(trusted_source / relative):
+            violations.append(f"protected path differs from trusted baseline: {relative}")
+    for relative_name in immutable_dependency_dirs:
+        relative = Path(relative_name)
+        ignored = {
+            path.relative_to(relative)
+            for item in task.get("mutable_dependency_paths", [])
+            if (path := Path(item)).is_relative_to(relative)
+        }
+        if tree_digest(workspace / relative, ignored) != tree_digest(
+            trusted_source / relative,
+            ignored,
+        ):
+            violations.append(f"dependency tree differs from trusted baseline: {relative}")
+    for relative_name in task.get("forbidden_paths", []):
+        relative = Path(relative_name)
+        candidate = workspace / relative
+        if candidate.exists() or candidate.is_symlink():
+            violations.append(f"forbidden build or test hook present: {relative}")
 
     if agent_can_see_tests(task):
         trusted_tests = regression_tests_for(task)
@@ -787,22 +873,27 @@ def integrity_checks(
 def score_private(task: dict, workspace: Path) -> dict:
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    integrity = integrity_checks(task, workspace)
     visible = run_regression_tests(task, workspace, env)
     hidden_dir = PRIVATE / "hidden" / task["id"]
     grader = grader_for(task)
     hidden = run_cmd(
         ["python3", "-I", str(grader), str(workspace), str(hidden_dir)],
         ROOT,
-        120,
+        int(task.get("grader_timeout", 120)),
         env,
     )
-    integrity = integrity_checks(task, workspace)
-    return {
-        "passed": (
+    passed = (
             visible["exit_code"] == 0
             and hidden["exit_code"] == 0
             and integrity["passed"]
-        ),
+        )
+    points = parse_point_score(hidden, passed)
+    if not integrity["passed"]:
+        points["earned"] = 0.0
+    return {
+        "passed": passed,
+        "points": points,
         "visible": visible,
         "hidden": hidden,
         "integrity": integrity,
@@ -825,6 +916,7 @@ def score_agent_workspace(
     shutil.copytree(
         workspace,
         sealed,
+        symlinks=True,
         ignore=shutil.ignore_patterns(".git", ".agent-state", "__pycache__", "*.pyc"),
     )
     env = os.environ.copy()
@@ -835,19 +927,24 @@ def score_agent_workspace(
     hidden = run_cmd(
         ["python3", "-I", str(grader), str(sealed), str(hidden_dir)],
         ROOT,
-        120,
+        int(task.get("grader_timeout", 120)),
         env,
     )
     after_digest = workspace_digest(workspace)
     if after_digest != before_digest:
         integrity["passed"] = False
         integrity["violations"].append("workspace changed after agent exit during sealed grading")
-    return {
-        "passed": (
+    passed = (
             visible["exit_code"] == 0
             and hidden["exit_code"] == 0
             and integrity["passed"]
-        ),
+        )
+    points = parse_point_score(hidden, passed)
+    if not integrity["passed"]:
+        points["earned"] = 0.0
+    return {
+        "passed": passed,
+        "points": points,
         "visible": visible,
         "hidden": hidden,
         "integrity": integrity,
@@ -1388,6 +1485,14 @@ def doctor(_: argparse.Namespace) -> int:
         "go": shutil.which("go"),
         "cargo": shutil.which("cargo"),
         "java": shutil.which("java"),
+        "javac_21": str(
+            Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/javac")
+        )
+        if Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/javac").exists()
+        else None,
+        "dotnet": shutil.which("dotnet"),
+        "godot": shutil.which("godot"),
+        "clang++": shutil.which("clang++"),
         "cmake": shutil.which("cmake"),
         "zcode_config": str(ROOT / "zcode.json") if (ROOT / "zcode.json").exists() else None,
         "opencode_config": str(ROOT / "opencode.jsonc") if (ROOT / "opencode.jsonc").exists() else None,
@@ -1427,13 +1532,26 @@ def report(_: argparse.Namespace) -> int:
     grouped: dict[tuple[str, str], list[dict]] = {}
     for row in rows:
         grouped.setdefault((row["run_id"], row["provider"]), []).append(row)
-    print("| run | provider | passed | attempted | pass rate | compile/tool errors | avg seconds |")
+    print("| run | provider | passed | attempted | points | compile/tool errors | avg seconds |")
     print("|---|---:|---:|---:|---:|---:|---:|")
     for (run_id, provider), group in sorted(grouped.items()):
         passed = sum(bool(r["score"]["passed"]) for r in group)
+        earned = sum(
+            float(r["score"].get("points", {}).get(
+                "earned", 10 if r["score"]["passed"] else 0
+            ))
+            for r in group
+        )
+        possible = sum(
+            float(r["score"].get("points", {}).get("total", 10))
+            for r in group
+        )
         errors = sum(r["agent"]["exit_code"] != 0 for r in group)
         avg = sum(r["agent"]["wall_seconds"] for r in group) / len(group)
-        print(f"| {run_id} | {provider} | {passed} | {len(group)} | {passed/len(group):.1%} | {errors} | {avg:.1f} |")
+        print(
+            f"| {run_id} | {provider} | {passed} | {len(group)} | "
+            f"{earned:g}/{possible:g} ({earned/possible:.1%}) | {errors} | {avg:.1f} |"
+        )
     return 0
 
 
@@ -1560,6 +1678,17 @@ def mutate_partial_fix(task_id: str, source: str) -> str:
     return source.replace(old, new, 1)
 
 
+def install_overlay(source: Path, workspace: Path) -> None:
+    for path in source.rglob("*"):
+        relative = path.relative_to(source)
+        target = workspace / relative
+        if path.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+        else:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, target)
+
+
 def hidden_test_count(hidden_dir: Path) -> int:
     return sum(
         1
@@ -1576,23 +1705,38 @@ def quality_audit(_: argparse.Namespace) -> int:
     print("|---|---:|---:|---:|---:|---:|---:|")
     for task in load_tasks():
         task_id = task["id"]
-        implementation = IMPLEMENTATION_FILES[task_id]
         baseline_workspace = audit_root / task_id / "baseline"
         init_workspace(PRIVATE / "tasks" / task_id, baseline_workspace)
         baseline = score_private(task, baseline_workspace)
 
-        reference_source = (PRIVATE / "oracle" / "reference" / f"{task_id}.py").read_text()
         reference_workspace = audit_root / task_id / "reference"
         init_workspace(PRIVATE / "tasks" / task_id, reference_workspace)
-        (reference_workspace / implementation).write_text(reference_source)
+        reference_overlay = PRIVATE / "oracle" / "reference" / task_id
+        if reference_overlay.is_dir():
+            install_overlay(reference_overlay, reference_workspace)
+        else:
+            implementation = IMPLEMENTATION_FILES[task_id]
+            reference_source = (
+                PRIVATE / "oracle" / "reference" / f"{task_id}.py"
+            ).read_text()
+            (reference_workspace / implementation).write_text(reference_source)
         reference = score_private(task, reference_workspace)
 
         mutant_workspace = audit_root / task_id / "partial-fix"
         init_workspace(PRIVATE / "tasks" / task_id, mutant_workspace)
-        (mutant_workspace / implementation).write_text(mutate_partial_fix(task_id, reference_source))
+        partial_overlay = PRIVATE / "oracle" / "partial" / task_id
+        if partial_overlay.is_dir():
+            install_overlay(partial_overlay, mutant_workspace)
+        else:
+            (mutant_workspace / implementation).write_text(
+                mutate_partial_fix(task_id, reference_source)
+            )
         mutant = score_private(task, mutant_workspace)
 
-        count = hidden_test_count(PRIVATE / "hidden" / task_id)
+        count = task.get(
+            "hidden_check_count",
+            hidden_test_count(PRIVATE / "hidden" / task_id),
+        )
         regression_green = baseline["visible"]["exit_code"] == 0
         baseline_rejected = not baseline["passed"]
         reference_passes = reference["passed"]

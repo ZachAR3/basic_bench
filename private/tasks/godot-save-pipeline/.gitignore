@@ -1,0 +1,4 @@
+.godot/
+.bench-csharp/
+bin/
+obj/

@@ -27,3 +27,15 @@ its own license and attribution requirements.
 The compact private tasks, prompts, held-out tests, reference repairs, harness,
 and reports in this repository are original project material unless a file
 states otherwise.
+
+The multi-language tasks are original material informed by the public API and
+tooling documentation for:
+
+- [React](https://react.dev/) and [Vite](https://vite.dev/)
+- [Java 21](https://docs.oracle.com/en/java/javase/21/)
+- [Godot](https://docs.godotengine.org/) and [.NET](https://learn.microsoft.com/dotnet/)
+- [C++](https://isocpp.org/) and [Rust](https://doc.rust-lang.org/)
+
+No third-party application source code is included in those tasks. Their npm
+development dependencies retain their own licenses under `node_modules` after
+local setup and are not committed.
